@@ -7,7 +7,6 @@ import {
   ChevronRight,
   ScanLine,
   Compass,
-  Plus,
 } from "lucide-react";
 const Globe = dynamic(() => import("./Globe"), {
   loading: () => (
@@ -16,13 +15,7 @@ const Globe = dynamic(() => import("./Globe"), {
     </div>
   ),
 });
-export default function FieldHero({
-  children,
-  note,
-}: {
-  children: ReactNode;
-  note: { label: string; title: string; description: string };
-}) {
+export default function FieldHero({ children }: { children: ReactNode }) {
   const [plate, setPlate] = useState(0),
     ref = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -82,32 +75,11 @@ export default function FieldHero({
       <div className="field-shade" />
       <div className="container-x field-content">
         <div className="mission-copy">{children}</div>
-        <div className="field-subject">
-          {plate ? (
+        {plate === 1 && (
+          <div className="field-subject">
             <Globe />
-          ) : (
-            <details
-              className="field-note"
-              onKeyDown={(e) => {
-                if (e.key === "Escape") {
-                  e.currentTarget.open = false;
-                  e.currentTarget.querySelector("summary")?.focus();
-                }
-              }}
-            >
-              <summary>
-                <span className="note-cross" aria-hidden="true">
-                  <Plus size={15} />
-                </span>
-                {note.label}
-              </summary>
-              <div className="note-body">
-                <h2>{note.title}</h2>
-                <p>{note.description}</p>
-              </div>
-            </details>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <div className="container-x hero-foot">
         <a href="#divisions" className="scroll-link">

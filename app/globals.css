@@ -814,64 +814,6 @@ button:disabled {
     transform: none !important;
   }
 }
-/* An image annotation, not a decorative marker. Native disclosure works before hydration. */
-.field-note {
-  position: relative;
-  width: min(100%, 262px);
-  color: #f4f5f0;
-}
-.field-note summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  list-style: none;
-  cursor: pointer;
-  background: #162e25ee;
-  border: 1px solid #e1e8dd8c;
-  border-radius: 3px;
-  padding: 7px 13px 7px 7px;
-  font:
-    600 10px/1.4 ui-monospace,
-    monospace;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.field-note summary::-webkit-details-marker {
-  display: none;
-}
-.note-cross {
-  display: grid;
-  place-items: center;
-  width: 25px;
-  height: 25px;
-  color: #183b32;
-  background: #d1dfc4;
-  border-radius: 50%;
-}
-.field-note[open] .note-cross {
-  transform: rotate(45deg);
-}
-.note-body {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  z-index: 2;
-  padding: 16px;
-  background: #f4f5f0;
-  color: #183b32;
-  border-left: 3px solid var(--bronze);
-  border-radius: 2px;
-}
-.note-body h2 {
-  font-size: 15px;
-  font-weight: 700;
-}
-.note-body p {
-  margin-top: 6px;
-  font-size: 12px;
-  line-height: 1.65;
-  color: #394f45;
-}
 .service-finder {
   display: grid;
   grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.5fr);
@@ -981,27 +923,14 @@ button:disabled {
   text-underline-offset: 3px;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .note-cross,
   .field-image {
-    transition:
-      opacity 0.24s ease,
-      rotate 0.18s ease;
+    transition: opacity 0.24s ease;
   }
-  .field-note[open] .note-body,
   .finder-results [role="tabpanel"]:not([hidden]) {
     animation: enterSection 0.23s ease-out;
   }
 }
 @media (max-width: 670px) {
-  .field-note {
-    width: 100%;
-    margin-top: 18px;
-  }
-  .note-body {
-    position: static;
-    margin-top: 5px;
-    max-width: 360px;
-  }
   .service-finder {
     grid-template-columns: 1fr;
     gap: 15px;

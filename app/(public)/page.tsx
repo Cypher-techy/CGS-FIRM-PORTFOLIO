@@ -59,13 +59,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <FieldHero
-        note={{
-          label: c("field_note_label"),
-          title: c("field_note_title"),
-          description: c("field_note_description"),
-        }}
-      >
+      <FieldHero>
         <div className="signal">
           <span /> {c("technology_environment_opportunity")}
         </div>
