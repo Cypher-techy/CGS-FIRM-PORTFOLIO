@@ -1,16 +1,21 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ShieldCheck, Loader2, AlertTriangle, Lock } from "lucide-react";
-import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { publicSupabaseConfig } from "@/lib/supabase/public-config";
 
 function LoginForm() {
   const router = useRouter();
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const configured = isSupabaseConfigured();
+  const { url, key } = publicSupabaseConfig();
+  const missing = [
+    !url && "NEXT_PUBLIC_SUPABASE_URL",
+    !key && "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+  ].filter(Boolean);
+  const configured = missing.length === 0;
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -53,8 +58,9 @@ function LoginForm() {
       {!configured && (
         <div className="mt-5 flex gap-3 rounded-xl bg-amber-50 p-4 text-sm text-amber-800">
           <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
-          <p>
-            Administrator sign-in is unavailable until Supabase is connected.
+          <p className="min-w-0 break-words">
+            This deployment is missing {missing.join(" and ")}. Set the missing
+            environment variables and rebuild to enable sign-in.
           </p>
         </div>
       )}

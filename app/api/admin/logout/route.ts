@@ -1,24 +1,21 @@
+import { publicSupabaseConfig } from "@/lib/supabase/public-config";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
-import { isSupabaseConfigured } from "@/lib/supabase/client";
 
 export async function POST() {
   const cookieStore = await cookies();
-  if (isSupabaseConfigured()) {
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll: () => cookieStore.getAll(),
-          setAll: (toSet) =>
-            toSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options),
-            ),
-        },
+  const { url, key } = publicSupabaseConfig();
+  if (url && key) {
+    const supabase = createServerClient(url, key, {
+      cookies: {
+        getAll: () => cookieStore.getAll(),
+        setAll: (toSet) =>
+          toSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options),
+          ),
       },
-    );
+    });
     await supabase.auth.signOut();
   }
 
