@@ -78,7 +78,7 @@ export default async function AboutPage() {
             )}
           />
           <Reveal delay={0.1}>
-            <div className="space-y-4 leading-relaxed text-slate-700">
+            <div className="space-y-4 leading-relaxed text-slate2">
               <p>
                 {c(
                   "we_serve_businesses_institutions_communities_and_development",
@@ -95,17 +95,17 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white py-20">
+      <section className="bg-surface py-20">
         <div className="container-x grid gap-6 md:grid-cols-2">
           <Reveal>
             <div className="card h-full p-8">
               <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
                 <Eye className="h-6 w-6" />
               </span>
-              <h2 className="mt-5 font-display text-2xl font-extrabold text-forest-950">
+              <h2 className="mt-5 font-display text-2xl font-extrabold text-action">
                 {c("our_vision")}
               </h2>
-              <blockquote className="mt-3 border-l-4 border-emerald2 pl-4 text-lg italic leading-relaxed text-slate-700">
+              <blockquote className="mt-3 border-l-4 border-emerald2 pl-4 text-lg italic leading-relaxed text-slate2">
                 {c(
                   "to_become_a_leading_multidisciplinary_firm_delivering",
                 )}{" "}
@@ -117,10 +117,10 @@ export default async function AboutPage() {
               <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
                 <Target className="h-6 w-6" />
               </span>
-              <h2 className="mt-5 font-display text-2xl font-extrabold text-forest-950">
+              <h2 className="mt-5 font-display text-2xl font-extrabold text-action">
                 {c("our_mission")}
               </h2>
-              <blockquote className="mt-3 border-l-4 border-emerald2 pl-4 text-lg italic leading-relaxed text-slate-700">
+              <blockquote className="mt-3 border-l-4 border-emerald2 pl-4 text-lg italic leading-relaxed text-slate2">
                 {c("to_develop_and_deliver_practical_technology_driven")}{" "}
               </blockquote>
             </div>
@@ -139,7 +139,7 @@ export default async function AboutPage() {
             <Reveal key={c(v.name, v.name)} delay={i * 0.05}>
               <div className="card h-full p-6">
                 <v.icon className="h-7 w-7 text-emerald2" />
-                <h3 className="mt-3 font-display text-lg font-bold text-forest-950">
+                <h3 className="mt-3 font-display text-lg font-bold text-action">
                   {c(v.name, v.name)}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate2">
@@ -162,7 +162,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white py-20">
+      <section className="bg-surface py-20">
         <div className="container-x grid gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading
@@ -197,7 +197,7 @@ export default async function AboutPage() {
                       {i + 1}
                     </span>
                     <div>
-                      <h3 className="font-display font-bold text-forest-950">
+                      <h3 className="font-display font-bold text-action">
                         {t}
                       </h3>
                       <p className="mt-1 text-sm leading-relaxed text-slate2">
@@ -214,7 +214,7 @@ export default async function AboutPage() {
               <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
                 <Users className="h-6 w-6" />
               </span>
-              <h3 className="mt-5 font-display text-xl font-bold text-forest-950">
+              <h3 className="mt-5 font-display text-xl font-bold text-action">
                 {c("leadership_organisation")}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-slate2">

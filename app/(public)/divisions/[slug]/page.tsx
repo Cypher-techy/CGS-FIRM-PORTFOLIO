@@ -56,19 +56,19 @@ export default async function DivisionDetailPage({
               title={c("what_we_do")}
             />
             <Reveal delay={0.1}>
-              <p className="mt-5 text-lg leading-relaxed text-slate-700">
+              <p className="mt-5 text-lg leading-relaxed text-slate2">
                 {division.description}
               </p>
             </Reveal>
             <Reveal delay={0.15}>
-              <h3 className="mt-10 font-display text-xl font-bold text-forest-950">
+              <h3 className="mt-10 font-display text-xl font-bold text-action">
                 {c("capabilities")}
               </h3>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {division.capabilities.map((c) => (
                   <li
                     key={c}
-                    className="flex items-start gap-2.5 text-sm text-slate-700"
+                    className="flex items-start gap-2.5 text-sm text-slate2"
                   >
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald2" />{" "}
                     {c}
@@ -82,7 +82,7 @@ export default async function DivisionDetailPage({
               <span className="grid h-14 w-14 place-items-center rounded-2xl bg-forest-900 text-emerald2-light">
                 <Icon className="h-7 w-7" />
               </span>
-              <h3 className="mt-5 font-display text-xl font-bold text-forest-950">
+              <h3 className="mt-5 font-display text-xl font-bold text-action">
                 {c("engage_this_division")}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate2">
@@ -114,13 +114,13 @@ export default async function DivisionDetailPage({
                     href={`/services/${s.slug}`}
                     className="card group flex h-full flex-col p-6 transition hover:-translate-y-1 hover:shadow-lift"
                   >
-                    <h3 className="font-display text-lg font-bold text-forest-950">
+                    <h3 className="font-display text-lg font-bold text-action">
                       {s.title}
                     </h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
                       {s.summary}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-forest-800">
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-action">
                       {c("view_service")} <ArrowRight className="h-4 w-4" />
                     </span>
                   </Link>

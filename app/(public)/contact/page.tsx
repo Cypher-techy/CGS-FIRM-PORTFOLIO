@@ -72,7 +72,7 @@ function ContactForm() {
       {status === "done" ? (
         <div className="py-10 text-center">
           <CheckCircle2 className="mx-auto h-14 w-14 text-emerald2" />
-          <h2 className="mt-4 font-display text-2xl font-extrabold text-forest-950">
+          <h2 className="mt-4 font-display text-2xl font-extrabold text-action">
             {c("enquiry_received")}
           </h2>
           <p className="mx-auto mt-2 max-w-md text-slate2">{message}</p>
@@ -100,7 +100,7 @@ function ContactForm() {
                     }
                     className="peer sr-only"
                   />
-                  <span className="flex flex-col items-center gap-1.5 rounded-xl border border-forest-900/15 px-3 py-3 text-center text-xs font-bold text-forest-900 transition peer-checked:border-emerald2 peer-checked:bg-emerald2/10 peer-focus-visible:ring-2 peer-focus-visible:ring-emerald2">
+                  <span className="flex flex-col items-center gap-1.5 rounded-xl border border-line px-3 py-3 text-center text-xs font-bold text-action transition peer-checked:border-emerald2 peer-checked:bg-emerald2/10 peer-focus-visible:ring-2 peer-focus-visible:ring-emerald2">
                     <k.icon className="h-5 w-5" /> {k.label}
                   </span>
                 </label>
@@ -273,7 +273,7 @@ export default function ContactPage() {
                       <p className="text-xs font-bold uppercase tracking-wider text-slate2">
                         {c.label}
                       </p>
-                      <p className="font-display font-bold text-forest-950">
+                      <p className="font-display font-bold text-action">
                         {c.value}
                       </p>
                     </div>

@@ -75,7 +75,7 @@ export default async function ResearchPage() {
                 <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
                   <a.icon className="h-6 w-6" />
                 </span>
-                <h2 className="mt-4 font-display text-lg font-bold text-forest-950">
+                <h2 className="mt-4 font-display text-lg font-bold text-action">
                   {c(a.title, a.title)}
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate2">
@@ -114,13 +114,13 @@ export default async function ResearchPage() {
                     </span>
                     <span className="text-slate2">{p.category}</span>
                   </div>
-                  <h3 className="mt-4 font-display text-xl font-bold leading-snug text-forest-950">
+                  <h3 className="mt-4 font-display text-xl font-bold leading-snug text-action">
                     {p.title}
                   </h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
                     {p.excerpt}
                   </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-forest-800">
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-action">
                     {c("read_publication")} <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </Link>

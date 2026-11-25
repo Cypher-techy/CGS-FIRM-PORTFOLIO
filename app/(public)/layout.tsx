@@ -24,7 +24,7 @@ export default async function PublicLayout({
       }}
     >
       <a
-        className="sr-only focus:not-sr-only focus:fixed focus:z-[90] focus:bg-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:z-[90] focus:bg-surface"
         href="#main"
       >
         Skip to content

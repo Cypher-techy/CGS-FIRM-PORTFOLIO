@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Orbit, MoveHorizontal } from "lucide-react";
+import { MoveHorizontal } from "lucide-react";
 // Orthographic projection of the Blue Marble surface; redraw only on interaction.
 export default function Globe() {
   const ref = useRef<HTMLCanvasElement>(null),
     texture = useRef<ImageData>(),
     start = useRef<number | null>(null);
+  const [ready, onReady] = useState(false);
   const [angle, set] = useState(0);
   useEffect(() => {
     const im = new Image();
@@ -17,16 +18,17 @@ export default function Globe() {
       if (ctx) {
         ctx.drawImage(im, 0, 0);
         texture.current = ctx.getImageData(0, 0, c.width, c.height);
+        onReady(true);
       }
     };
     im.src = "/atlas/surface.webp";
   }, []);
   useEffect(() => {
-    if (!angle) return;
+    if (!angle || !ready) return;
     const tex = texture.current,
       ctx = ref.current?.getContext("2d");
     if (!tex || !ctx) return;
-    const n = 440,
+    const n = ref.current!.width,
       out = ctx.createImageData(n, n),
       tilt = 0.28;
     for (let j = 0; j < n; j++)
@@ -58,13 +60,9 @@ export default function Globe() {
         out.data[k + 3] = 255;
       }
     ctx.putImageData(out, 0, 0);
-  }, [angle]);
+  }, [angle, ready]);
   return (
     <div className="atlas">
-      <div className="atlas-label">
-        <span />
-        GEOSPATIAL INTELLIGENCE
-      </div>
       <div
         className="orb"
         aria-label="Earth centered on Africa. Drag or use arrow keys to rotate"
@@ -97,47 +95,10 @@ export default function Globe() {
       >
         <canvas
           ref={ref}
-          width={440}
-          height={440}
-          style={{ opacity: angle ? 1 : 0 }}
+          width={300}
+          height={300}
+          style={{ opacity: angle && ready ? 1 : 0 }}
         />
-        {!angle && (
-          <svg className="routes" viewBox="0 0 400 400" aria-hidden="true">
-            <g fill="none" stroke="#a9f7c5" strokeWidth="1" opacity=".9">
-              <path d="M235 259Q270 109 163 79M235 259Q282 140 345 160M235 259Q181 170 119 201M235 259Q184 295 187 347M235 259Q356 199 355 102" />
-            </g>
-            {[
-              [235, 259],
-              [163, 79],
-              [345, 160],
-              [119, 201],
-              [187, 347],
-              [355, 102],
-            ].map(([x, y]) => (
-              <g key={x}>
-                <circle cx={x} cy={y} r="8" fill="#acffc7" opacity=".18" />
-                <circle cx={x} cy={y} r="3" fill="#d6ffd6" />
-              </g>
-            ))}
-          </svg>
-        )}
-      </div>
-      <svg className="orbits" viewBox="0 0 520 470" aria-hidden="true">
-        <g transform="rotate(-26 260 233)" fill="none" stroke="#7ec4a2">
-          <ellipse cx="260" cy="233" rx="257" ry="125" strokeOpacity=".48" />
-          <ellipse
-            cx="260"
-            cy="233"
-            rx="269"
-            ry="135"
-            strokeOpacity=".21"
-            strokeDasharray="3 7"
-          />
-          <circle cx="517" cy="233" r="3" fill="#83ecb3" />
-        </g>
-      </svg>
-      <div className="atlas-plate">
-        <Orbit size={16} /> EARTH OBSERVATION <span>/ 01</span>
       </div>
       <div className="drag">
         <MoveHorizontal size={13} /> Drag to rotate

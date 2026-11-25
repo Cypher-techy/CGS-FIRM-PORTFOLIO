@@ -33,7 +33,7 @@ export default async function IndustriesPage() {
                 <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
                   <Building2 className="h-6 w-6" />
                 </span>
-                <h2 className="mt-4 font-display text-lg font-bold text-forest-950">
+                <h2 className="mt-4 font-display text-lg font-bold text-action">
                   {ind.name}
                 </h2>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
@@ -41,7 +41,7 @@ export default async function IndustriesPage() {
                 </p>
                 <ul className="mt-4 space-y-1.5">
                   {ind.offerings.map((o) => (
-                    <li key={o} className="flex gap-2 text-sm text-slate-700">
+                    <li key={o} className="flex gap-2 text-sm text-slate2">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald2" />{" "}
                       {o}
                     </li>

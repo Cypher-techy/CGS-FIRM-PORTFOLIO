@@ -61,7 +61,7 @@ export default async function AdminLayout({
         {/* Sidebar */}
         <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col bg-forest-950 text-white lg:flex">
           <div className="flex items-center gap-3 border-b border-white/10 p-5">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-emerald2 text-forest-950">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-sage text-forest-950">
               <ShieldCheck className="h-5 w-5" />
             </span>
             <div className="leading-tight">
@@ -98,24 +98,24 @@ export default async function AdminLayout({
 
         {/* Main */}
         <div className="min-w-0 flex-1">
-          <header className="sticky top-0 z-40 flex items-center justify-between border-b border-forest-900/10 bg-white/90 px-5 py-3 backdrop-blur lg:hidden">
+          <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-surface/90 px-5 py-3 lg:hidden">
             <Link
               href="/admin/dashboard"
-              className="flex items-center gap-2 font-display font-extrabold text-forest-950"
+              className="flex items-center gap-2 font-display font-extrabold text-action"
             >
               <ShieldCheck className="h-5 w-5 text-emerald2" /> CGS Admin
             </Link>
             <LogoutButton compact />
           </header>
           <nav
-            className="flex gap-2 overflow-x-auto border-b border-forest-900/10 bg-white px-4 py-2 lg:hidden"
+            className="flex gap-2 overflow-x-auto border-b border-line bg-surface px-4 py-2 lg:hidden"
             aria-label="Admin mobile"
           >
             {visible.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
-                className="flex shrink-0 items-center gap-1.5 rounded-full bg-mist px-3 py-1.5 text-xs font-bold text-forest-900"
+                className="flex shrink-0 items-center gap-1.5 rounded-full bg-mist px-3 py-1.5 text-xs font-bold text-action"
               >
                 <n.icon className="h-4 w-4" /> {n.label}
               </Link>

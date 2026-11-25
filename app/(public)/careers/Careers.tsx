@@ -91,7 +91,7 @@ export default function CareersPage({ VACANCIES }: { VACANCIES: Vacancy[] }) {
                           <MapPin className="h-4 w-4" /> {v.location}
                         </span>
                       </div>
-                      <h2 className="mt-2 font-display text-xl font-bold text-forest-950">
+                      <h2 className="mt-2 font-display text-xl font-bold text-action">
                         {v.title}
                       </h2>
                       <p className="mt-1 text-sm text-slate2">{v.summary}</p>
@@ -103,31 +103,31 @@ export default function CareersPage({ VACANCIES }: { VACANCIES: Vacancy[] }) {
                   </button>
 
                   {active === v.slug && (
-                    <div className="border-t border-forest-900/10 bg-mist/60 p-7">
+                    <div className="border-t border-line bg-mist/60 p-7">
                       <div className="grid gap-8 lg:grid-cols-2">
                         <div>
-                          <h3 className="font-display font-bold text-forest-950">
+                          <h3 className="font-display font-bold text-action">
                             {c("responsibilities")}
                           </h3>
                           <ul className="mt-3 space-y-2">
                             {v.responsibilities.map((r) => (
                               <li
                                 key={r}
-                                className="flex gap-2.5 text-sm text-slate-700"
+                                className="flex gap-2.5 text-sm text-slate2"
                               >
                                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald2" />{" "}
                                 {r}
                               </li>
                             ))}
                           </ul>
-                          <h3 className="mt-6 font-display font-bold text-forest-950">
+                          <h3 className="mt-6 font-display font-bold text-action">
                             {c("requirements")}
                           </h3>
                           <ul className="mt-3 space-y-2">
                             {v.requirements.map((r) => (
                               <li
                                 key={r}
-                                className="flex gap-2.5 text-sm text-slate-700"
+                                className="flex gap-2.5 text-sm text-slate2"
                               >
                                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald2" />{" "}
                                 {r}
@@ -139,7 +139,7 @@ export default function CareersPage({ VACANCIES }: { VACANCIES: Vacancy[] }) {
                           {status === "done" ? (
                             <div className="py-8 text-center">
                               <CheckCircle2 className="mx-auto h-12 w-12 text-emerald2" />
-                              <h3 className="mt-3 font-display text-xl font-extrabold text-forest-950">
+                              <h3 className="mt-3 font-display text-xl font-extrabold text-action">
                                 {c("application_received")}
                               </h3>
                               <p className="mt-2 text-sm text-slate2">
