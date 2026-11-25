@@ -1,5 +1,5 @@
 "use client";
-import { previewImages } from "@/lib/portfolio-images";
+import { previewImages, previewSrcSet } from "@/lib/portfolio-images";
 import { useState } from "react";
 import { ExternalLink, Monitor } from "lucide-react";
 export default function PlatformPreview({
@@ -30,16 +30,26 @@ export default function PlatformPreview({
         </a>
       </div>
       {previewImages(slug, screenshots).map((s, i) => (
-        <img
+        <a
           key={s}
-          src={s}
-          loading="lazy"
-          width="1056"
-          height="624"
-          decoding="async"
-          className="h-auto w-full"
-          alt={`${name} screenshot ${i + 1}`}
-        />
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block"
+          aria-label={`Visit ${name} website (opens in a new tab)`}
+        >
+          <img
+            srcSet={previewSrcSet(slug, s)}
+            sizes="(max-width: 960px) 100vw, 960px"
+            src={s}
+            loading="lazy"
+            width="1056"
+            height="624"
+            decoding="async"
+            className="h-auto w-full"
+            alt={`${name} screenshot ${i + 1}`}
+          />
+        </a>
       ))}
       {open ? (
         <>

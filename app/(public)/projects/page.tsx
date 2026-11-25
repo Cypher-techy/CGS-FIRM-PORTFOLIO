@@ -45,7 +45,7 @@ export default async function ProjectsPage() {
             <Reveal key={p.slug} delay={i * 0.05}>
               <article className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
                 <PortfolioImage
-                  section="projects"
+                  url={p.url}
                   slug={p.slug}
                   name={p.name}
                   images={p.screenshots}

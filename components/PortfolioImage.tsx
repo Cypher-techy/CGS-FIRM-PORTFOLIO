@@ -1,31 +1,48 @@
-import Link from "next/link";
-import { previewImages } from "@/lib/portfolio-images";
+import { ExternalLink } from "lucide-react";
+import { previewImages, previewSrcSet } from "@/lib/portfolio-images";
 export default function PortfolioImage({
   slug,
   name,
   images,
-  section,
+  url,
+  compact = false,
 }: {
   slug: string;
   name: string;
   images?: string[];
-  section: "projects" | "products";
+  url: string;
+  compact?: boolean;
 }) {
   const src = previewImages(slug, images)[0];
-  return src ? (
-    <Link
-      href={`/${section}/${slug}`}
-      className="portfolio-image"
-      aria-label={`Explore ${name}`}
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`portfolio-image ${compact ? "w-24 shrink-0 rounded" : ""}`}
+      aria-label={`Visit ${name} website (opens in a new tab)`}
     >
-      <img
-        src={src}
-        alt={`${name} interface preview`}
-        width="1056"
-        height="624"
-        loading="lazy"
-        decoding="async"
-      />
-    </Link>
-  ) : null;
+      {src ? (
+        <img
+          src={src}
+          srcSet={previewSrcSet(slug, src)}
+          sizes={
+            compact
+              ? "96px"
+              : "(max-width: 640px) 90vw, (max-width: 1024px) 48vw, 440px"
+          }
+          alt={`${name} website preview`}
+          width="960"
+          height="567"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span className="grid h-full place-content-center gap-1 text-center text-sm text-slate2">
+          <ExternalLink className="mx-auto h-5 w-5" />
+          Visit website<span className="text-xs">Preview unavailable</span>
+        </span>
+      )}
+    </a>
+  );
 }

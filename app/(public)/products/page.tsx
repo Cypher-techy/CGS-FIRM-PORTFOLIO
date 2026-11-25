@@ -33,7 +33,7 @@ export default async function ProductsPage() {
             <Reveal key={p.slug} delay={i * 0.06}>
               <article className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
                 <PortfolioImage
-                  section="products"
+                  url={p.url}
                   slug={p.slug}
                   name={p.name}
                   images={p.screenshots}

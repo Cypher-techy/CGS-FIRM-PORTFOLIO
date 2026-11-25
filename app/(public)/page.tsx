@@ -1,6 +1,5 @@
 import PortfolioImage from "@/components/PortfolioImage";
 import ServiceFinder from "@/components/ServiceFinder";
-import ProductTile from "@/components/ProductTile";
 import { copyFor } from "@/lib/content";
 import Link from "next/link";
 import {
@@ -244,15 +243,12 @@ export default async function HomePage() {
             {PRODUCTS.map((p, i) => (
               <Reveal key={p.slug} delay={i * 0.06}>
                 <div className="flex h-full flex-col rounded-xl2 border border-white/12 bg-white/5 p-6 transition hover:bg-white/10">
-                  <div
-                    className={`grid h-14 w-14 place-items-center rounded-2xl bg-forest-800 font-display text-xl font-extrabold text-white`}
-                  >
-                    <ProductTile
-                      slug={p.slug}
-                      name={p.name}
-                      logo={p.logo_url}
-                    />
-                  </div>
+                  <PortfolioImage
+                    slug={p.slug}
+                    name={p.name}
+                    url={p.url}
+                    images={p.screenshots}
+                  />
                   <p className="mt-4 text-xs font-bold uppercase tracking-wider text-emerald2-light">
                     {p.category}
                   </p>
@@ -303,7 +299,7 @@ export default async function HomePage() {
             <Reveal key={p.slug} delay={i * 0.06}>
               <article className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
                 <PortfolioImage
-                  section="projects"
+                  url={p.url}
                   slug={p.slug}
                   name={p.name}
                   images={p.screenshots}
@@ -394,29 +390,29 @@ export default async function HomePage() {
             <div className="mt-8 space-y-4">
               {PRODUCTS.map((p) => (
                 <Reveal key={p.slug}>
-                  <Link
-                    href={`/products/${p.slug}`}
-                    className="card group flex items-center gap-4 p-5 transition hover:shadow-lift"
-                  >
-                    <span
-                      className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-forest-800 font-display font-extrabold text-white`}
+                  <div className="card flex items-center gap-4 p-4">
+                    <PortfolioImage
+                      compact
+                      slug={p.slug}
+                      name={p.name}
+                      url={p.url}
+                      images={p.screenshots}
+                    />
+                    <Link
+                      href={`/products/${p.slug}`}
+                      className="group flex flex-1 items-center gap-2"
                     >
-                      <ProductTile
-                        slug={p.slug}
-                        name={p.name}
-                        logo={p.logo_url}
-                      />
-                    </span>
-                    <span className="flex-1">
-                      <span className="block font-display font-bold text-action">
-                        {p.name}
+                      <span className="flex-1">
+                        <span className="block font-display font-bold text-action">
+                          {p.name}
+                        </span>
+                        <span className="block text-sm text-slate2">
+                          {p.classification}
+                        </span>
                       </span>
-                      <span className="block text-sm text-slate2">
-                        {p.classification}
-                      </span>
-                    </span>
-                    <ArrowUpRight className="h-5 w-5 text-action transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
+                      <ArrowUpRight className="h-5 w-5 text-action transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </div>
                 </Reveal>
               ))}
             </div>
