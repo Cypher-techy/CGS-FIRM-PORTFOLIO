@@ -3,6 +3,16 @@
 -- Run in Supabase SQL Editor. Apply once to a new, independent Supabase project.
 -- ════════════════════════════════════════════════════════════════════
 
+-- All-or-nothing baseline. Do not overlay a partial or existing CGS installation.
+begin;
+do $$ declare t text; begin
+  foreach t in array array['profiles','business_divisions','services','products','projects','industries','careers','publications','case_studies','project_categories','website_settings','applications','inquiries','partnerships','media_assets','audit_logs','form_limits'] loop
+    if to_regclass(format('public.%I',t)) is not null then
+      raise exception 'Existing table public.%; refusing fresh bootstrap. Audit the existing schema first.',t;
+    end if;
+  end loop;
+end $$;
+
 -- ── Extensions ──────────────────────────────────────────────────────
 create extension if not exists "pgcrypto";
 
@@ -406,3 +416,5 @@ grant select,insert,update,delete on all tables in schema public to service_role
 create function public.sync_division_label() returns trigger language plpgsql set search_path='' as $$begin
  if new.name is distinct from old.name then update public.services set division_name=new.name where division_id=new.id;end if;return new;end $$;
 create trigger sync_division_name after update of name on public.business_divisions for each row execute function public.sync_division_label();
+
+commit;

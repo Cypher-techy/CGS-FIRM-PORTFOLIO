@@ -1,4 +1,6 @@
 import { publicSupabaseConfig } from "@/lib/supabase/public-config";
+import { can } from "@/lib/access";
+import { readFailure } from "@/lib/supabase/read-error";
 import { rateLimited, clientIp } from "@/lib/validation";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
@@ -40,6 +42,20 @@ export async function POST(req: Request) {
       email,
       password,
     });
+    if (
+      error &&
+      error.code !== "invalid_credentials" &&
+      error.code !== "email_not_confirmed"
+    ) {
+      readFailure("password sign-in", error.status ?? 0, error.code);
+      return NextResponse.json(
+        {
+          error:
+            "Sign-in service unavailable. Check the deployment’s Auth configuration.",
+        },
+        { status: error.status === 429 ? 429 : 503 },
+      );
+    }
     if (error || !data.user) {
       return NextResponse.json(
         { error: "Invalid email or password." },
@@ -47,13 +63,25 @@ export async function POST(req: Request) {
       );
     }
     // Verify the user has an admin profile with an authorised role
-    const { data: profile } = await supabase
+    const {
+      data: profile,
+      error: profileError,
+      status,
+    } = await supabase
       .from("profiles")
       .select("role")
       .eq("id", data.user.id)
       .maybeSingle();
-    if (!profile) {
-      await supabase.auth.signOut();
+    if (profileError) {
+      readFailure("staff profile", status, profileError.code);
+      await supabase.auth.signOut({ scope: "local" });
+      return NextResponse.json(
+        { error: "Unable to verify administrator access." },
+        { status: 503 },
+      );
+    }
+    if (!profile || !can(profile.role, "dashboard")) {
+      await supabase.auth.signOut({ scope: "local" });
       return NextResponse.json(
         {
           error:

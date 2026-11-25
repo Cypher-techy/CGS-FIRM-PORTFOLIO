@@ -22,7 +22,7 @@ import {
 import FieldHero from "@/components/FieldHero";
 import FeatureRail from "@/components/FeatureRail";
 import { Reveal, SectionHeading } from "@/components/ui";
-import { collection } from "@/lib/content";
+import { optionalCollection } from "@/lib/content";
 
 const plates: Record<string, [string, string]> = {
   Leaf: ["terrain", "ENV"],
@@ -47,12 +47,12 @@ export default async function HomePage() {
 
   const [DIVISIONS, SERVICES, PRODUCTS, PROJECTS, INDUSTRIES, PUBLICATIONS] =
     await Promise.all([
-      collection("DIVISIONS"),
-      collection("SERVICES"),
-      collection("PRODUCTS"),
-      collection("PROJECTS"),
-      collection("INDUSTRIES"),
-      collection("PUBLICATIONS"),
+      optionalCollection("DIVISIONS"),
+      optionalCollection("SERVICES"),
+      optionalCollection("PRODUCTS"),
+      optionalCollection("PROJECTS"),
+      optionalCollection("INDUSTRIES"),
+      optionalCollection("PUBLICATIONS"),
     ]);
   const featuredProjects = PROJECTS.filter((p) => p.featured);
   const featuredPubs = PUBLICATIONS.filter((p) => p.featured);

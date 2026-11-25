@@ -1,19 +1,17 @@
 import { siteUrl } from "@/lib/site-url";
 import type { MetadataRoute } from "next";
-import { collection } from "@/lib/content";
-import * as fallback from "@/lib/data";
+import { optionalCollection } from "@/lib/content";
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Sitemap generation must not take down the deployment when Supabase is
-  // temporarily unavailable or a content table has not been provisioned yet.
-  // Use the checked-in content catalogue as a fallback for each collection.
+  // Never advertise seed slugs for a connected table that is down or unpublished.
   const [DIVISIONS, SERVICES, PRODUCTS, PROJECTS, PUBLICATIONS] =
     await Promise.all([
-      collection("DIVISIONS").catch(() => fallback.DIVISIONS),
-      collection("SERVICES").catch(() => fallback.SERVICES),
-      collection("PRODUCTS").catch(() => fallback.PRODUCTS),
-      collection("PROJECTS").catch(() => fallback.PROJECTS),
-      collection("PUBLICATIONS").catch(() => fallback.PUBLICATIONS),
+      optionalCollection("DIVISIONS"),
+      optionalCollection("SERVICES"),
+      optionalCollection("PRODUCTS"),
+      optionalCollection("PROJECTS"),
+      optionalCollection("PUBLICATIONS"),
     ]);
 
   const base = siteUrl;

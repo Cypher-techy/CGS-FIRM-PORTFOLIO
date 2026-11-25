@@ -1,4 +1,5 @@
 import { publicSupabaseConfig } from "@/lib/supabase/public-config";
+import { ContentReadError, readFailure } from "./supabase/read-error";
 import defaultsByPage from "./copy-defaults.json";
 import "server-only";
 import { cache } from "react";
@@ -16,21 +17,29 @@ const tables = {
 type Key = keyof typeof tables;
 function publicDb() {
   const { url, key } = publicSupabaseConfig();
-  return url && key
-    ? createClient(url, key, {
-        auth: { persistSession: false, autoRefreshToken: false },
-        global: {
-          fetch: (url, options) =>
-            fetch(url, { ...options, cache: "no-store" }),
-        },
-      })
-    : null;
+  if (!url && !key && process.env.VERCEL_ENV !== "production") return null; // intentional unconfigured preview
+  if (!url || !key) throw readFailure("public client", 0, "INCOMPLETE_CONFIG");
+  try {
+    return createClient(url, key, {
+      db: { schema: "public", timeout: 5000, retry: false },
+      auth: { persistSession: false, autoRefreshToken: false },
+      global: {
+        fetch: (url, options) =>
+          fetch(url, {
+            ...options,
+            cache: "no-store",
+          }),
+      },
+    });
+  } catch {
+    throw readFailure("public client", 0, "INVALID_CONFIG");
+  }
 }
 export const collection = cache(
   async <K extends Key>(k: K): Promise<(typeof defaults)[K]> => {
     const db = publicDb();
     if (!db) return defaults[k];
-    const { data, error } = await db
+    const { data, error, status } = await db
       .from(tables[k])
       .select("*")
       .eq("published", true)
@@ -43,32 +52,53 @@ export const collection = cache(
         { ascending: k !== "PUBLICATIONS" },
       )
       .order("slug");
-    if (error) throw Error(`Could not load ${tables[k]}`);
+    if (error) throw readFailure(tables[k], status, error.code);
     return data.map((r) => ({
       ...r,
-      division: r.division_name,
-      date: r.published_at,
+      ...(k === "SERVICES" ? { division: r.division_name ?? "" } : {}),
+      ...(k === "PUBLICATIONS"
+        ? { date: r.published_at, excerpt: r.excerpt ?? "" }
+        : {}),
     })) as (typeof defaults)[K];
   },
 );
-export const settings = cache(async (): Promise<Record<string, unknown>> => {
-  const db = publicDb();
-  if (!db) return {};
-  const { data, error } = await db.from("website_settings").select("key,value");
-  if (error) throw Error("Could not load website settings");
-  return Object.fromEntries(data.map((x) => [x.key, x.value]));
-});
+// Only optional sections may degrade. An unavailable primary collection is not
+// an empty database or a 404; let the directory/detail error boundary handle it.
+async function optional<T>(read: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await read();
+  } catch (e) {
+    if (!(e instanceof ContentReadError)) throw e;
+    return fallback;
+  }
+}
+export function optionalCollection<K extends Key>(k: K) {
+  return optional<(typeof defaults)[K] | never[]>(() => collection(k), []);
+}
+export const settings = cache(() =>
+  optional<Record<string, unknown>>(async () => {
+    const db = publicDb();
+    if (!db) return {};
+    const { data, error, status } = await db
+      .from("website_settings")
+      .select("key,value");
+    if (error) throw readFailure("website_settings", status, error.code);
+    return Object.fromEntries(data.map((x) => [x.key, x.value]));
+  }, {}),
+);
 export async function caseNotes(slug: string) {
-  const db = publicDb();
-  if (!db) return [];
-  const { data, error } = await db
-    .from("case_studies")
-    .select("id,title,body,results,projects!inner(slug,published)")
-    .eq("published", true)
-    .eq("projects.slug", slug)
-    .eq("projects.published", true);
-  if (error) throw Error("Could not load case study");
-  return data;
+  return optional(async () => {
+    const db = publicDb();
+    if (!db) return [];
+    const { data, error, status } = await db
+      .from("case_studies")
+      .select("id,title,body,results,projects!inner(slug,published)")
+      .eq("published", true)
+      .eq("projects.slug", slug)
+      .eq("projects.published", true);
+    if (error) throw readFailure("case_studies", status, error.code);
+    return data;
+  }, []);
 }
 export async function copyFor(
   section: string,

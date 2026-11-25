@@ -21,3 +21,29 @@ jobs:
           trap 'kill $! || true' EXIT
           curl --retry 10 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:3000/ -o /dev/null
           npm run smoke
+
+  offline-cms-build:
+    runs-on: ubuntu-latest
+    env:
+      # A configured but unreachable database must not prevent a build.
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:3399
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_local_fixture
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Check outage isolation and published-only sitemap
+        run: |
+          npm start -- --hostname 127.0.0.1 &
+          trap 'kill $! || true' EXIT
+          curl --retry 10 --retry-connrefused --retry-delay 1 -fsS localhost:3000/techy/login -o /dev/null
+          curl -fsS localhost:3000/sitemap.xml -o /tmp/sitemap.xml
+          grep -q '/products</loc>' /tmp/sitemap.xml
+          if grep -q '/products/cypher-terra' /tmp/sitemap.xml; then exit 1; fi
+          curl -fsS localhost:3000/contact -o /dev/null
+          node scripts/check-cms-render.mjs
+          node scripts/check-staff-session.mjs
