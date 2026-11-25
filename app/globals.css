@@ -481,7 +481,7 @@ button:disabled {
 .division-plate img {
   width: 100%;
   height: auto;
-  aspect-ratio: 460/145;
+  aspect-ratio: 16/7;
   object-fit: cover;
   transition: transform 0.35s;
 }

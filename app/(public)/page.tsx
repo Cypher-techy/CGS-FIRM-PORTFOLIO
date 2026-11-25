@@ -121,9 +121,12 @@ export default async function HomePage() {
                     <div className="division-plate">
                       <img
                         loading="lazy"
-                        width="460"
-                        height="150"
-                        src={`/field/${art}.svg`}
+                        decoding="async"
+                        width="960"
+                        height="420"
+                        src={`/field/divisions/${art}-480.webp`}
+                        srcSet={`/field/divisions/${art}-480.webp 480w, /field/divisions/${art}-960.webp 960w`}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                         alt=""
                       />
                       <span>
