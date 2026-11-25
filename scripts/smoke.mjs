@@ -14,7 +14,7 @@ for (const m of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))
 while (todo.size) {
   const url = todo.values().next().value;
   todo.delete(url);
-  if (seen.has(url) || url.startsWith("/admin")) continue;
+  if (seen.has(url)) continue;
   seen.add(url);
   const res = await fetch(base + url);
   assert.equal(res.status, 200, url);
@@ -24,6 +24,11 @@ while (todo.size) {
   for (const m of html.matchAll(/<a\b[^>]*?\shref="([^"]*)"/g)) {
     const link = m[1].replaceAll("&amp;", "&");
     assert.notEqual(link, "#", url);
+    assert.doesNotMatch(
+      link,
+      /^\/(techy|admin)([/?#]|$)/,
+      `Public workspace link on ${url}`,
+    );
     if (link.startsWith("/")) {
       const u = new URL(link, origin);
       todo.add(u.pathname + u.search);
@@ -33,6 +38,20 @@ while (todo.size) {
 const seed = readFileSync("lib/data.ts", "utf8");
 for (const [, u] of seed.matchAll(/url: "(https:\/\/[^"\s]+)"/g))
   assert.ok(out.has(u), u);
+assert.equal(
+  (await fetch(`${base}/admin`, { redirect: "manual" })).status,
+  404,
+);
+assert.equal(
+  (await fetch(`${base}/techy/login`, { redirect: "manual" })).status,
+  200,
+);
+const entry = await fetch(`${base}/techy`, { redirect: "manual" });
+assert.equal(entry.status, 307);
+assert.equal(
+  new URL(entry.headers.get("location"), base).pathname,
+  "/techy/login",
+);
 for (const route of [
   "dashboard",
   "services",
@@ -50,11 +69,11 @@ for (const route of [
   "industries",
   "business_divisions",
 ]) {
-  const r = await fetch(`${base}/admin/${route}`, { redirect: "manual" });
+  const r = await fetch(`${base}/techy/${route}`, { redirect: "manual" });
   assert.ok([307, 308].includes(r.status), route);
   assert.equal(
     new URL(r.headers.get("location"), base).pathname,
-    "/admin/login",
+    "/techy/login",
   );
 }
 for (const [name, fixture] of Object.entries({

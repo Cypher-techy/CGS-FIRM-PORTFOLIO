@@ -153,9 +153,6 @@ export default function Footer({
             <Link href="/partnerships" className="hover:text-white">
               Partner With CGS
             </Link>
-            <Link href="/admin" className="hover:text-white">
-              Admin Login
-            </Link>
           </div>
         </div>
       </div>

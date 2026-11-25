@@ -46,7 +46,6 @@ export default function Navbar({
     window.addEventListener("scroll", read, { passive: true });
     return () => window.removeEventListener("scroll", read);
   }, []);
-  if (path.startsWith("/admin")) return null;
   return (
     <header
       className={scrolled ? "mast scrolled" : "mast"}

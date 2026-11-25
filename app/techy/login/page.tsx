@@ -28,7 +28,7 @@ function LoginForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
-      router.push("/admin/dashboard");
+      router.push("/techy/dashboard");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");

@@ -60,6 +60,34 @@ h2,
 h3 {
   text-wrap: balance;
 }
+/* Shared editorial hierarchy. Use character measures rather than viewport-wide text. */
+.page-title,
+.section-title {
+  margin-block-start: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.page-title {
+  max-inline-size: min(100%, 30ch);
+  font-size: clamp(2rem, 1.45rem + 2.65vw, 3.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.13;
+}
+.section-title {
+  max-inline-size: 31ch;
+  font-size: clamp(1.65rem, 1.35rem + 1.45vw, 2.55rem);
+  letter-spacing: -0.032em;
+  line-height: 1.19;
+}
+.text-center > .section-title { margin-inline: auto; }
+.section-deck {
+  max-inline-size: 62ch;
+  margin-block-start: 0.875rem;
+  font-size: clamp(1rem, 0.97rem + 0.22vw, 1.125rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
 .card {
   @apply rounded-xl border border-line bg-surface;
 }
@@ -91,6 +119,8 @@ h3 {
   gap: 11px;
 }
 .eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.105em;
   color: rgb(var(--muted));
 }
 .eyebrow:before,
@@ -101,6 +131,8 @@ h3 {
   background: var(--bronze);
 }
 .text-white .eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.105em;
   color: #c9d4c6;
 }
 .btn-primary,
@@ -143,6 +175,8 @@ button:disabled {
   cursor: not-allowed;
 }
 .prose-cgs p {
+  max-inline-size: 68ch;
+  text-wrap: pretty;
   @apply mb-4 leading-relaxed text-slate2;
 }
 .prose-cgs h2 {
@@ -312,6 +346,20 @@ button:disabled {
   min-height: 440px;
   padding-block: 52px 37px;
 }
+/* Center the landscape message across the full frame; keep the globe's split layout. */
+.field-hero:not(.view-globe) .mission-copy {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+.field-hero:not(.view-globe) .mission-copy > p {
+  margin-inline: auto;
+}
+.field-hero:not(.view-globe) .hero-actions {
+  justify-content: center;
+}
+.field-hero:not(.view-globe) .field-shade {
+  background: radial-gradient(ellipse at center, #101d26db 0%, #101d26bd 45%, #101d267a 100%);
+}
 .mission-copy h1 {
   font-size: clamp(40px, 4.35vw, 67px);
   letter-spacing: -0.055em;
@@ -325,7 +373,7 @@ button:disabled {
   color: #c2d2b5;
 }
 .mission-copy > p {
-  max-width: 510px;
+  max-width: 55ch;
   color: #e0e8dd;
   font-size: 15px;
   line-height: 1.7;
@@ -383,20 +431,20 @@ button:disabled {
   gap: 10px;
 }
 .scroll-link {
-  font-size: 9px;
+  font-size: 10px;
   color: #e1e8da;
 }
 .plate-picker {
   gap: 12px;
 }
 .plate-index {
-  font-size: 9px;
+  font-size: 10px;
   color: #dce7d5;
 }
 .plate-title {
   border-left: 1px solid #c2d2b573;
   padding-left: 12px;
-  font-size: 9px;
+  font-size: 10px;
   color: white;
   letter-spacing: 0.12em;
 }
@@ -441,7 +489,7 @@ button:disabled {
   justify-content: center;
   gap: 5px;
   color: white;
-  font-size: 9px;
+  font-size: 10px;
 }
 .topo-bg {
   background-color: var(--forest);
@@ -454,19 +502,6 @@ button:disabled {
 .division-band {
   background: rgb(var(--paper));
   padding-block: 47px 58px;
-}
-.division-band h2,
-.font-display.text-3xl {
-  font-weight: 600;
-  letter-spacing: -0.04em;
-}
-.division-band h2 {
-  font-size: clamp(30px, 3vw, 43px);
-  margin-top: 8px;
-}
-.division-band .mt-4.text-base {
-  font-size: 14px;
-  margin-top: 8px;
 }
 .division-band .btn-ghost {
   background: rgb(var(--surface));
@@ -496,7 +531,7 @@ button:disabled {
   align-items: center;
   gap: 8px;
   border: 1px solid #183b3226;
-  font-size: 9px;
+  font-size: 10px;
 }
 .division-grid .card > h3,
 .division-grid .card > p,
@@ -707,7 +742,7 @@ button:disabled {
     gap: 0;
   }
   .plate-title {
-    font-size: 8px;
+    font-size: 10px;
   }
   .plate-picker {
     gap: 8px;
@@ -747,10 +782,10 @@ button:disabled {
     grid-auto-columns: 84%;
   }
   .mission-copy > p {
-    font-size: 14px;
+    font-size: 1rem;
   }
   .signal {
-    font-size: 9px;
+    font-size: 10px;
   }
 }
 @media (max-width: 360px) {
@@ -813,64 +848,6 @@ button:disabled {
   .portfolio-image:hover img {
     transform: none !important;
   }
-}
-/* An image annotation, not a decorative marker. Native disclosure works before hydration. */
-.field-note {
-  position: relative;
-  width: min(100%, 262px);
-  color: #f4f5f0;
-}
-.field-note summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  list-style: none;
-  cursor: pointer;
-  background: #162e25ee;
-  border: 1px solid #e1e8dd8c;
-  border-radius: 3px;
-  padding: 7px 13px 7px 7px;
-  font:
-    600 10px/1.4 ui-monospace,
-    monospace;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.field-note summary::-webkit-details-marker {
-  display: none;
-}
-.note-cross {
-  display: grid;
-  place-items: center;
-  width: 25px;
-  height: 25px;
-  color: #183b32;
-  background: #d1dfc4;
-  border-radius: 50%;
-}
-.field-note[open] .note-cross {
-  transform: rotate(45deg);
-}
-.note-body {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  z-index: 2;
-  padding: 16px;
-  background: #f4f5f0;
-  color: #183b32;
-  border-left: 3px solid var(--bronze);
-  border-radius: 2px;
-}
-.note-body h2 {
-  font-size: 15px;
-  font-weight: 700;
-}
-.note-body p {
-  margin-top: 6px;
-  font-size: 12px;
-  line-height: 1.65;
-  color: #394f45;
 }
 .service-finder {
   display: grid;
@@ -981,27 +958,14 @@ button:disabled {
   text-underline-offset: 3px;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .note-cross,
   .field-image {
-    transition:
-      opacity 0.24s ease,
-      rotate 0.18s ease;
+    transition: opacity 0.24s ease;
   }
-  .field-note[open] .note-body,
   .finder-results [role="tabpanel"]:not([hidden]) {
     animation: enterSection 0.23s ease-out;
   }
 }
 @media (max-width: 670px) {
-  .field-note {
-    width: 100%;
-    margin-top: 18px;
-  }
-  .note-body {
-    position: static;
-    margin-top: 5px;
-    max-width: 360px;
-  }
   .service-finder {
     grid-template-columns: 1fr;
     gap: 15px;
@@ -1012,4 +976,46 @@ button:disabled {
   .finder-select {
     display: block;
   }
+}
+
+/* The image frame opens with native scroll; adjacent copy never moves or clips. */
+.estuary-study {
+  margin-top: clamp(32px, 5vw, 72px);
+}
+.estuary-study img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  border-radius: 4px;
+}
+.estuary-study figcaption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  color: rgb(var(--muted));
+  font: 600 10px/1.5 ui-monospace, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.estuary-study figcaption::after {
+  content: '';
+  height: 1px;
+  background: rgb(var(--line));
+  flex: 1;
+  order: 1;
+}
+.estuary-study figcaption span:last-child { order: 2; }
+@media (min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) and (animation-range: entry) {
+    .estuary-study img {
+      animation: estuary-open linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 48%;
+    }
+  }
+}
+@keyframes estuary-open {
+  from { clip-path: inset(8% 16% round 48px); }
+  to { clip-path: inset(0 round 4px); }
 }
