@@ -66,13 +66,13 @@ export function SectionHeading({
     >
       <p className="eyebrow">{eyebrow}</p>
       <h2
-        className={`mt-4 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl ${dark ? "text-white" : "text-action"}`}
+        className={`section-title ${dark ? "text-white" : "text-action"}`}
       >
         {title}
       </h2>
       {description && (
         <p
-          className={`mt-4 text-base leading-relaxed sm:text-lg ${dark ? "text-white/70" : "text-slate2"}`}
+          className={`section-deck ${align === "center" ? "mx-auto" : ""} ${dark ? "text-white/70" : "text-slate2"}`}
         >
           {description}
         </p>
@@ -96,11 +96,11 @@ export function PageHero({
       <div className="container-x relative">
         <div className="page-arrive">
           <p className="eyebrow">{eyebrow}</p>
-          <h1 className="mt-4 max-w-4xl font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="page-title">
             {title}
           </h1>
           {description && (
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
+            <p className="section-deck text-white/75">
               {description}
             </p>
           )}

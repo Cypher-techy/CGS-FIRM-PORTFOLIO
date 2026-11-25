@@ -46,10 +46,10 @@ export default async function InsightDetailPage({
               })}
             </span>
           </div>
-          <h1 className="mt-5 font-display text-3xl font-extrabold leading-tight tracking-tight text-action sm:text-5xl">
+          <h1 className="page-title text-action">
             {pub.title}
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-slate2">
+          <p className="section-deck text-slate2">
             {pub.excerpt}
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-2">

@@ -369,9 +369,9 @@ export default async function HomePage() {
                 <span className="grid h-14 w-14 place-items-center rounded-2xl bg-sage text-forest-950">
                   <FlaskConical className="h-7 w-7" />
                 </span>
-                <h3 className="mt-6 font-display text-2xl font-extrabold sm:text-3xl">
+                <h2 className="section-title mt-6">
                   {c("research_innovation")}
-                </h3>
+                </h2>
                 <p className="mt-3 leading-relaxed text-white/70">
                   {c(
                     "applied_research_in_environmental_technology_geospatial_science",
@@ -464,7 +464,7 @@ export default async function HomePage() {
         <div className="container-x grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
           <div>
             <p className="eyebrow">{c("partnerships")}</p>
-            <h2 className="mt-4 font-display text-3xl font-extrabold leading-tight sm:text-4xl">
+            <h2 className="section-title">
               {c("build_with_us_research_with_us_grow")}{" "}
             </h2>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/70">
@@ -541,7 +541,7 @@ export default async function HomePage() {
           <div className="topo-bg relative overflow-hidden rounded-xl2 bg-forest-900 p-10 text-center text-white sm:p-16">
             <div className="grid-bg absolute inset-0 opacity-40" aria-hidden />
             <div className="relative">
-              <h2 className="mx-auto max-w-2xl font-display text-3xl font-extrabold leading-tight sm:text-4xl">
+              <h2 className="section-title mx-auto">
                 {c("have_a_problem_worth_solving")}{" "}
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-white/70">

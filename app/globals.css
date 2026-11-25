@@ -60,6 +60,34 @@ h2,
 h3 {
   text-wrap: balance;
 }
+/* Shared editorial hierarchy. Use character measures rather than viewport-wide text. */
+.page-title,
+.section-title {
+  margin-block-start: 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.page-title {
+  max-inline-size: min(100%, 30ch);
+  font-size: clamp(2rem, 1.45rem + 2.65vw, 3.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1.13;
+}
+.section-title {
+  max-inline-size: 31ch;
+  font-size: clamp(1.65rem, 1.35rem + 1.45vw, 2.55rem);
+  letter-spacing: -0.032em;
+  line-height: 1.19;
+}
+.text-center > .section-title { margin-inline: auto; }
+.section-deck {
+  max-inline-size: 62ch;
+  margin-block-start: 0.875rem;
+  font-size: clamp(1rem, 0.97rem + 0.22vw, 1.125rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
 .card {
   @apply rounded-xl border border-line bg-surface;
 }
@@ -91,6 +119,8 @@ h3 {
   gap: 11px;
 }
 .eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.105em;
   color: rgb(var(--muted));
 }
 .eyebrow:before,
@@ -101,6 +131,8 @@ h3 {
   background: var(--bronze);
 }
 .text-white .eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.105em;
   color: #c9d4c6;
 }
 .btn-primary,
@@ -143,6 +175,8 @@ button:disabled {
   cursor: not-allowed;
 }
 .prose-cgs p {
+  max-inline-size: 68ch;
+  text-wrap: pretty;
   @apply mb-4 leading-relaxed text-slate2;
 }
 .prose-cgs h2 {
@@ -325,7 +359,7 @@ button:disabled {
   color: #c2d2b5;
 }
 .mission-copy > p {
-  max-width: 510px;
+  max-width: 55ch;
   color: #e0e8dd;
   font-size: 15px;
   line-height: 1.7;
@@ -383,20 +417,20 @@ button:disabled {
   gap: 10px;
 }
 .scroll-link {
-  font-size: 9px;
+  font-size: 10px;
   color: #e1e8da;
 }
 .plate-picker {
   gap: 12px;
 }
 .plate-index {
-  font-size: 9px;
+  font-size: 10px;
   color: #dce7d5;
 }
 .plate-title {
   border-left: 1px solid #c2d2b573;
   padding-left: 12px;
-  font-size: 9px;
+  font-size: 10px;
   color: white;
   letter-spacing: 0.12em;
 }
@@ -441,7 +475,7 @@ button:disabled {
   justify-content: center;
   gap: 5px;
   color: white;
-  font-size: 9px;
+  font-size: 10px;
 }
 .topo-bg {
   background-color: var(--forest);
@@ -454,19 +488,6 @@ button:disabled {
 .division-band {
   background: rgb(var(--paper));
   padding-block: 47px 58px;
-}
-.division-band h2,
-.font-display.text-3xl {
-  font-weight: 600;
-  letter-spacing: -0.04em;
-}
-.division-band h2 {
-  font-size: clamp(30px, 3vw, 43px);
-  margin-top: 8px;
-}
-.division-band .mt-4.text-base {
-  font-size: 14px;
-  margin-top: 8px;
 }
 .division-band .btn-ghost {
   background: rgb(var(--surface));
@@ -496,7 +517,7 @@ button:disabled {
   align-items: center;
   gap: 8px;
   border: 1px solid #183b3226;
-  font-size: 9px;
+  font-size: 10px;
 }
 .division-grid .card > h3,
 .division-grid .card > p,
@@ -707,7 +728,7 @@ button:disabled {
     gap: 0;
   }
   .plate-title {
-    font-size: 8px;
+    font-size: 10px;
   }
   .plate-picker {
     gap: 8px;
@@ -747,10 +768,10 @@ button:disabled {
     grid-auto-columns: 84%;
   }
   .mission-copy > p {
-    font-size: 14px;
+    font-size: 1rem;
   }
   .signal {
-    font-size: 9px;
+    font-size: 10px;
   }
 }
 @media (max-width: 360px) {

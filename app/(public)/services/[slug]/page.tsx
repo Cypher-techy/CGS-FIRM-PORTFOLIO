@@ -25,12 +25,12 @@ function Block({
   return (
     <Reveal>
       <div className="card p-7">
-        <h3 className="flex items-center gap-2.5 font-display text-lg font-bold text-action">
+        <h2 className="flex items-center gap-2.5 font-display text-lg font-bold text-action">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
             <Icon className="h-5 w-5" />
           </span>
           {title}
-        </h3>
+        </h2>
         <div className="mt-4">{children}</div>
       </div>
     </Reveal>
