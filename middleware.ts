@@ -1,3 +1,4 @@
+import { publicSupabaseConfig } from "@/lib/supabase/public-config";
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { can } from "@/lib/access";
@@ -5,8 +6,7 @@ export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   if (path === "/techy/login") return NextResponse.next();
   const login = () => NextResponse.redirect(new URL("/techy/login", req.url));
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL,
-    key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const { url, key } = publicSupabaseConfig();
   if (!url || !key) return login();
   let res = NextResponse.next({ request: req });
   const db = createServerClient(url, key, {

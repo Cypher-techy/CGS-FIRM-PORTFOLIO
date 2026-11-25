@@ -12,7 +12,7 @@ select id,email,'Super Administrator','super_admin'
 from auth.users where id = '<confirmed-user-uuid>'::uuid;
 ```
 
-Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and the **server-only** `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` or Vercel. Rebuild after changing public environment variables. Visit `/techy/login`. There are no demo credentials or bypass cookies. Super administrators can create further accounts and grant or revoke access in **User roles**. Removing the profile revokes dashboard access even if an Auth session remains valid.
+Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (also accepts `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` or legacy `NEXT_PUBLIC_SUPABASE_ANON_KEY`) and the **server-only** `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` or Vercel. For Vercel, set the variables on the project serving the site and for the intended environment (Production or Preview), then redeploy. Public settings are embedded at build time. A connected integration alone does not configure an existing build. A service-role key is not required for staff sign-in; never place a secret/service-role key in any `NEXT_PUBLIC_` variable. Visit `/techy/login`. There are no demo credentials or bypass cookies. Super administrators can create further accounts and grant or revoke access in **User roles**. Removing the profile revokes dashboard access even if an Auth session remains valid.
 
 ## Staff permissions
 

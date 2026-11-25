@@ -1,3 +1,4 @@
+import { publicSupabaseConfig } from "@/lib/supabase/public-config";
 import defaultsByPage from "./copy-defaults.json";
 import "server-only";
 import { cache } from "react";
@@ -14,8 +15,7 @@ const tables = {
 } as const;
 type Key = keyof typeof tables;
 function publicDb() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL,
-    key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const { url, key } = publicSupabaseConfig();
   return url && key
     ? createClient(url, key, {
         auth: { persistSession: false, autoRefreshToken: false },
