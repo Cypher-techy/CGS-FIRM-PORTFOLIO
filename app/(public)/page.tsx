@@ -1,4 +1,5 @@
 import PortfolioImage from "@/components/PortfolioImage";
+import ServiceFinder from "@/components/ServiceFinder";
 import ProductTile from "@/components/ProductTile";
 import { copyFor } from "@/lib/content";
 import Link from "next/link";
@@ -59,7 +60,13 @@ export default async function HomePage() {
 
   return (
     <>
-      <FieldHero>
+      <FieldHero
+        note={{
+          label: c("field_note_label"),
+          title: c("field_note_title"),
+          description: c("field_note_description"),
+        }}
+      >
         <div className="signal">
           <span /> {c("technology_environment_opportunity")}
         </div>
@@ -192,29 +199,27 @@ export default async function HomePage() {
             </Link>
           </Reveal>
         </div>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.slice(0, 6).map((s, i) => (
-            <Reveal key={s.slug} delay={i * 0.05}>
-              <Link
-                href={`/services/${s.slug}`}
-                className="division-card card group relative flex h-full flex-col p-6 transition hover:-translate-y-1 hover:shadow-lift"
-              >
-                <p className="text-xs font-bold uppercase tracking-wider text-emerald2">
-                  {s.division}
-                </p>
-                <h3 className="mt-2 font-display text-lg font-bold text-action">
-                  {s.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
-                  {s.summary}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-action">
-                  {c("view_service")} <ArrowUpRight className="h-4 w-4" />
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+        <ServiceFinder
+          label={c("choose_a_division")}
+          groups={Object.entries(
+            SERVICES.reduce<
+              Record<string, { slug: string; title: string; summary: string }[]>
+            >((groups, s) => {
+              (groups[s.division] ??= []).push({
+                slug: s.slug,
+                title: s.title,
+                summary: s.summary,
+              });
+              return groups;
+            }, {}),
+          ).map(([name, services]) => ({
+            name,
+            services,
+            art:
+              plates[DIVISIONS.find((d) => d.name === name)?.icon ?? ""]?.[0] ??
+              "terrain",
+          }))}
+        />
       </section>
 
       {/* ── PRODUCTS ─────────────────────────────────────────── */}

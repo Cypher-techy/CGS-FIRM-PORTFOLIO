@@ -359,50 +359,6 @@ button:disabled {
   place-items: center;
   min-width: 0;
 }
-.survey-mark {
-  width: 168px;
-  height: 125px;
-  position: relative;
-  color: #edf0dcc7;
-  display: grid;
-  place-items: center;
-}
-.survey-mark i {
-  position: absolute;
-  height: 12px;
-  width: 12px;
-  border: solid currentColor;
-  border-width: 1px 0 0 1px;
-}
-.survey-mark i:nth-child(1) {
-  left: 0;
-  top: 0;
-}
-.survey-mark i:nth-child(2) {
-  right: 0;
-  top: 0;
-  transform: rotate(90deg);
-}
-.survey-mark i:nth-child(3) {
-  right: 0;
-  bottom: 0;
-  transform: rotate(180deg);
-}
-.survey-mark i:nth-child(4) {
-  bottom: 0;
-  left: 0;
-  transform: rotate(270deg);
-}
-.survey-mark span {
-  font: 200 23px monospace;
-}
-.survey-mark small {
-  position: absolute;
-  bottom: -18px;
-  right: 0;
-  font: 9px monospace;
-  letter-spacing: 0.14em;
-}
 .hero-foot {
   display: flex;
   align-items: center;
@@ -458,9 +414,6 @@ button:disabled {
 }
 .view-globe .field-image {
   opacity: 0.06;
-}
-.view-globe .survey-mark {
-  display: none;
 }
 .atlas {
   position: relative;
@@ -688,9 +641,7 @@ button:disabled {
   .partner-action {
     font-size: 12px;
   }
-  .field-subject:has(.survey-mark) {
-    display: none;
-  }
+
   .view-globe .atlas {
     width: 180px;
     margin-top: 14px;
@@ -805,5 +756,204 @@ button:disabled {
   .group:hover svg,
   .portfolio-image:hover img {
     transform: none !important;
+  }
+}
+/* An image annotation, not a decorative marker. Native disclosure works before hydration. */
+.field-note {
+  position: relative;
+  width: min(100%, 262px);
+  color: #f4f5f0;
+}
+.field-note summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  cursor: pointer;
+  background: #162e25ee;
+  border: 1px solid #e1e8dd8c;
+  border-radius: 3px;
+  padding: 7px 13px 7px 7px;
+  font:
+    600 10px/1.4 ui-monospace,
+    monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.field-note summary::-webkit-details-marker {
+  display: none;
+}
+.note-cross {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  color: #183b32;
+  background: #d1dfc4;
+  border-radius: 50%;
+}
+.field-note[open] .note-cross {
+  transform: rotate(45deg);
+}
+.note-body {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 2;
+  padding: 16px;
+  background: #f4f5f0;
+  color: #183b32;
+  border-left: 3px solid var(--bronze);
+  border-radius: 2px;
+}
+.note-body h2 {
+  font-size: 15px;
+  font-weight: 700;
+}
+.note-body p {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #394f45;
+}
+.service-finder {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.5fr);
+  gap: clamp(20px, 4vw, 68px);
+  margin-top: 34px;
+  align-items: start;
+}
+.finder-label,
+.finder-no,
+.finder-plate > span {
+  font:
+    600 10px/1.4 ui-monospace,
+    monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.finder-label {
+  margin: 0 0 12px;
+  color: rgb(var(--muted));
+}
+.finder-tabs {
+  border-top: 1px solid rgb(var(--line));
+}
+.finder-tabs button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgb(var(--line));
+  font-weight: 600;
+  font-size: 14px;
+}
+.finder-tabs button > svg {
+  flex: none;
+  margin-left: auto;
+}
+.finder-no {
+  opacity: 0.78;
+}
+.finder-tabs button[aria-selected="true"] {
+  background: var(--cta);
+  color: var(--on-cta);
+}
+.finder-tabs button:hover:not([aria-selected="true"]) {
+  background: rgb(var(--inset));
+}
+.finder-select {
+  display: none;
+}
+.finder-results {
+  padding: 0 0 12px;
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--line));
+  border-radius: 4px;
+  overflow: hidden;
+}
+.finder-plate {
+  position: relative;
+}
+.finder-plate img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+}
+.finder-plate > span {
+  position: absolute;
+  left: 18px;
+  bottom: 12px;
+  background: #f4f5f0;
+  color: #183b32;
+  padding: 4px 8px;
+}
+.finder-results h3 {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 620;
+  letter-spacing: -0.035em;
+  margin: 20px;
+}
+.finder-results ul {
+  padding: 0 20px;
+}
+.finder-results li {
+  border-top: 1px solid rgb(var(--line));
+}
+.finder-results a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  color: rgb(var(--action));
+}
+.finder-results a small {
+  display: block;
+  color: rgb(var(--muted));
+  font-size: 13px;
+  line-height: 1.55;
+  margin-top: 3px;
+}
+.finder-results a svg {
+  flex: none;
+}
+.finder-results a:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .note-cross,
+  .field-image {
+    transition:
+      opacity 0.24s ease,
+      rotate 0.18s ease;
+  }
+  .field-note[open] .note-body,
+  .finder-results [role="tabpanel"]:not([hidden]) {
+    animation: enterSection 0.23s ease-out;
+  }
+}
+@media (max-width: 670px) {
+  .field-note {
+    width: 100%;
+    margin-top: 18px;
+  }
+  .note-body {
+    position: static;
+    margin-top: 5px;
+    max-width: 360px;
+  }
+  .service-finder {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .finder-tabs {
+    display: none;
+  }
+  .finder-select {
+    display: block;
   }
 }

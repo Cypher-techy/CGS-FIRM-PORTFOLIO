@@ -7,6 +7,7 @@ import {
   ChevronRight,
   ScanLine,
   Compass,
+  Plus,
 } from "lucide-react";
 const Globe = dynamic(() => import("./Globe"), {
   loading: () => (
@@ -15,7 +16,13 @@ const Globe = dynamic(() => import("./Globe"), {
     </div>
   ),
 });
-export default function FieldHero({ children }: { children: ReactNode }) {
+export default function FieldHero({
+  children,
+  note,
+}: {
+  children: ReactNode;
+  note: { label: string; title: string; description: string };
+}) {
   const [plate, setPlate] = useState(0),
     ref = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -79,14 +86,26 @@ export default function FieldHero({ children }: { children: ReactNode }) {
           {plate ? (
             <Globe />
           ) : (
-            <div className="survey-mark" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
-              <span>+</span>
-              <small>F—01</small>
-            </div>
+            <details
+              className="field-note"
+              onKeyDown={(e) => {
+                if (e.key === "Escape") {
+                  e.currentTarget.open = false;
+                  e.currentTarget.querySelector("summary")?.focus();
+                }
+              }}
+            >
+              <summary>
+                <span className="note-cross" aria-hidden="true">
+                  <Plus size={15} />
+                </span>
+                {note.label}
+              </summary>
+              <div className="note-body">
+                <h2>{note.title}</h2>
+                <p>{note.description}</p>
+              </div>
+            </details>
           )}
         </div>
       </div>
