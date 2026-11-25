@@ -1,0 +1,576 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --forest: #052e22;
+  --emerald: #10b981;
+  --font-display:
+    "Sora", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-body:
+    "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  @apply bg-mist text-ink font-body antialiased;
+}
+::selection {
+  background: #10b981;
+  color: #041f18;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.container-x {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest-800 px-6 py-3 text-sm font-semibold text-white transition hover:bg-forest-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald2 focus-visible:ring-offset-2;
+}
+.btn-emerald {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-emerald2 px-6 py-3 text-sm font-semibold text-forest-950 transition hover:bg-emerald2-light focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald2 focus-visible:ring-offset-2;
+}
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-forest-800/25 bg-white/60 px-6 py-3 text-sm font-semibold text-forest-900 transition hover:border-forest-800 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald2;
+}
+.btn-ghost-dark {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald2;
+}
+
+.eyebrow {
+  @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-emerald2;
+}
+.eyebrow::before {
+  content: "";
+  @apply h-px w-8 bg-emerald2;
+}
+
+.card {
+  @apply rounded-xl2 border border-forest-900/10 bg-white shadow-card;
+}
+.input {
+  @apply w-full rounded-xl border border-forest-900/15 bg-white px-4 py-3 text-sm text-ink placeholder:text-slate2 focus:border-emerald2 focus:outline-none focus:ring-2 focus:ring-emerald2/30;
+}
+.label {
+  @apply mb-1.5 block text-xs font-bold uppercase tracking-wider text-forest-900;
+}
+
+.prose-cgs p {
+  @apply mb-4 leading-relaxed text-slate-700;
+}
+.prose-cgs h2 {
+  @apply mb-3 mt-8 font-display text-2xl font-bold text-forest-900;
+}
+.prose-cgs h3 {
+  @apply mb-2 mt-6 font-display text-xl font-bold text-forest-900;
+}
+.prose-cgs ul {
+  @apply mb-4 list-disc space-y-1 pl-6 text-slate-700;
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.animate-floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+
+.topo-bg {
+  background-image:
+    radial-gradient(
+      ellipse 60% 50% at 20% 0%,
+      rgba(16, 185, 129, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 90% 100%,
+      rgba(16, 185, 129, 0.12),
+      transparent 60%
+    );
+}
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+:root {
+  --font-display: "Manrope Variable", sans-serif;
+  --font-body: "Inter Variable", sans-serif;
+}
+.mast {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  background: #071e18;
+  color: #f3faf6;
+  border-bottom: 1px solid #caffdb29;
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 35px;
+  letter-spacing: -3px;
+  line-height: 1;
+}
+.wordmark span {
+  color: #69df9f;
+}
+.brand-long {
+  border-left: 1px solid #527269;
+  padding-left: 12px;
+  font-size: 12px;
+  line-height: 1.22;
+  font-weight: 620;
+}
+.navlink {
+  font-size: 13px;
+  font-weight: 520;
+  color: #d4e1db;
+  position: relative;
+}
+.navlink:hover,
+.navlink[aria-current] {
+  color: #83e5aa;
+}
+.navlink[aria-current]:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 15px;
+  height: 2px;
+  background: #83e5aa;
+}
+.nav-menu {
+  position: absolute;
+  top: calc(100% + 13px);
+  background: #0c3027;
+  color: white;
+  right: 0;
+  padding: 10px;
+  width: 180px;
+  border: 1px solid #628e7866;
+  border-radius: 6px;
+}
+.nav-menu a {
+  display: block;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+.nav-menu a:hover {
+  background: #164938;
+}
+.mobile-nav {
+  top: 100%;
+  width: 100%;
+  max-height: 80vh;
+  overflow: auto;
+}
+.contact-nav,
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 650;
+}
+.contact-nav {
+  background: #a5ebad;
+  color: #102b20;
+  padding: 11px 17px;
+}
+.mission-hero {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 77% 47%,
+    #0e372b 0%,
+    #081f19 43%,
+    #071a15 79%
+  );
+  color: #f7faf7;
+}
+.sky {
+  position: absolute;
+  inset: 76px 0 0;
+  background-image:
+    linear-gradient(#95dfbc08 1px, transparent 1px),
+    linear-gradient(90deg, #95dfbc08 1px, transparent 1px),
+    url("/atlas/stars.svg");
+  background-size:
+    72px 72px,
+    72px 72px,
+    800px 500px;
+  mask-image: linear-gradient(90deg, #0006, #000);
+}
+.mission-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.14fr 1fr;
+  align-items: center;
+  padding-top: 110px;
+  padding-bottom: 34px;
+  min-height: 610px;
+}
+.signal,
+.atlas-label,
+.atlas-plate,
+.atlas-bar,
+.division-num,
+.drag {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.signal,
+.atlas-label,
+.atlas-plate {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  letter-spacing: 1.5px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.signal {
+  color: #a1e3b8;
+}
+.signal span,
+.atlas-label span,
+.atlas-bar i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  background: #93eda9;
+  box-shadow: 0 0 8px #8fee9c77;
+}
+.mission-copy {
+  position: relative;
+  z-index: 2;
+}
+.mission-copy h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.12vw, 62px);
+  line-height: 1.17;
+  letter-spacing: -0.058em;
+  font-weight: 640;
+  margin: 24px -30px 18px 0;
+}
+.mission-copy h1 em {
+  color: #89dea7;
+  font-style: normal;
+}
+.mission-copy > p {
+  max-width: 510px;
+  color: #bbcfc4;
+  line-height: 1.75;
+  font-size: 15px;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+.primary-action,
+.secondary-action {
+  padding: 14px 18px;
+}
+.primary-action {
+  background: #a5ebad;
+  color: #0c2b19;
+}
+.primary-action:hover,
+.contact-nav:hover {
+  background: #c8f6be;
+}
+.secondary-action {
+  border: 1px solid #678374;
+  color: white;
+  background: #12291f;
+}
+.partner-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: #c0decc;
+  font-size: 12px;
+}
+.partner-action:hover,
+.secondary-action:hover {
+  color: #a5ebad;
+}
+.atlas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 520/470;
+}
+.orb {
+  position: absolute;
+  inset: 9% 12% 8%;
+  border-radius: 100%;
+  background: center/100% 100% url("/atlas/earth.webp");
+  box-shadow:
+    0 0 1px 1px #6ce7b977,
+    0 0 24px #5ce7a525,
+    0 0 80px #2eac7326;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.orb:active {
+  cursor: grabbing;
+}
+.orb canvas,
+.routes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+.orbits {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.atlas-label,
+.atlas-plate {
+  position: absolute;
+  z-index: 2;
+  color: #c8e6d6;
+  background: #0d281feb;
+  border: 1px solid #88b59e55;
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.atlas-label {
+  right: 1%;
+  top: 11%;
+}
+.atlas-plate {
+  bottom: 12%;
+  left: 0;
+}
+.atlas-plate svg,
+.atlas-plate span {
+  color: #91deb0;
+}
+.drag {
+  position: absolute;
+  bottom: 1%;
+  right: 6%;
+  color: #aac6b6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+}
+.atlas-bar {
+  position: relative;
+  border-top: 1px solid #bedbca22;
+  font-size: 9px;
+  letter-spacing: 1.6px;
+  color: #a8c4b7;
+  padding: 15px 0;
+  background: #071e18;
+}
+.atlas-bar i {
+  margin-right: 8px;
+  width: 5px;
+  height: 5px;
+}
+.division-band {
+  background: #f4f5ee;
+}
+.division-band .eyebrow {
+  font-family: monospace;
+  color: #3a7754;
+}
+.division-band .eyebrow:before {
+  background: #548066;
+}
+.division-band .btn-ghost {
+  border-radius: 5px;
+  background: transparent;
+}
+.division-band .card {
+  box-shadow: none;
+  border-radius: 8px;
+}
+.division-num {
+  position: absolute;
+  right: 24px;
+  top: 28px;
+  color: #768a7d;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.division-card > span:first-child {
+  background: #e5eee0;
+  color: #2c6144;
+  border-radius: 5px;
+}
+.division-band h2 {
+  font-weight: 650;
+}
+.division-band .mt-4.text-base {
+  font-size: 15px;
+}
+.card {
+  border-radius: 10px;
+}
+.btn-primary,
+.btn-emerald,
+.btn-ghost,
+.btn-ghost-dark {
+  border-radius: 6px;
+}
+@media (max-width: 850px) {
+  .mission-inner {
+    grid-template-columns: 1fr 43%;
+    min-height: 550px;
+  }
+  .mission-copy h1 {
+    font-size: clamp(33px, 4.4vw, 45px);
+  }
+  .mission-copy > p {
+    font-size: 14px;
+  }
+  .atlas-plate {
+    left: -4%;
+  }
+  .signal {
+    font-size: 9px;
+  }
+}
+@media (max-width: 670px) {
+  .mission-inner {
+    display: flex;
+    flex-direction: column;
+    padding-top: 112px;
+    padding-bottom: 20px;
+    gap: 15px;
+  }
+  .mission-copy h1 {
+    font-size: clamp(33px, 7.7vw, 49px);
+    margin-right: 0;
+  }
+  .atlas {
+    max-width: 390px;
+  }
+  .atlas-bar {
+    font-size: 8px;
+    letter-spacing: 0.8px;
+  }
+  .signal {
+    letter-spacing: 1px;
+  }
+  .hero-actions {
+    gap: 9px;
+  }
+  .primary-action,
+  .secondary-action {
+    padding: 12px;
+    font-size: 12px;
+  }
+  .contact-nav {
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+}
+.mast {
+  background: #f8faf6;
+  color: #14291e;
+  border-color: #c5d0c7;
+}
+.mast .brand-long {
+  border-color: #c3cec4;
+  font-weight: 680;
+}
+.mast .navlink {
+  color: #42534a;
+}
+.mast .navlink:hover,
+.mast .navlink[aria-current] {
+  color: #155c36;
+}
+.mast .navlink[aria-current]:after {
+  background: #24834c;
+}
+.mast .contact-nav {
+  background: #153e2b;
+  color: #fff;
+}
+.mast .contact-nav:hover {
+  background: #23593c;
+}
+.mission-copy h1 {
+  letter-spacing: -0.052em;
+}
+.division-band {
+  padding-top: clamp(42px, 4vw, 60px);
+}
+@media (max-width: 670px) {
+  .mission-copy h1 {
+    font-size: clamp(25px, 7.7vw, 45px);
+  }
+  .mast img {
+    width: 70px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* The supplied CGS mark uses white lettering and needs a dark surface. */
+.mast {
+  background: #081e18;
+  color: #f5faf6;
+  border-color: #294437;
+}
+.mast .brand-long {
+  border-color: #557366;
+}
+.mast .navlink {
+  color: #d0e0d6;
+}
+.mast .navlink:hover,
+.mast .navlink[aria-current] {
+  color: #a2e5b6;
+}
+.mast .navlink[aria-current]:after {
+  background: #88d9a3;
+}
+.mast .contact-nav {
+  background: #a5ebad;
+  color: #102b20;
+}
+.mast .contact-nav:hover {
+  background: #c8f6be;
+}
