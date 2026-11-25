@@ -1,0 +1,9 @@
+/** Do not publish an unverified corporate domain. Configure a canonical origin before launch. */
+export const siteUrl = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000"),
+).origin;

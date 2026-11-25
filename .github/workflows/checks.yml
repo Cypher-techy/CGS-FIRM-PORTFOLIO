@@ -1,0 +1,23 @@
+name: Corporate website checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - name: Check local production routes and form responses
+        run: |
+          npm start -- --hostname 127.0.0.1 &
+          trap 'kill $! || true' EXIT
+          curl --retry 10 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:3000/ -o /dev/null
+          npm run smoke

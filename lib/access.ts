@@ -1,0 +1,42 @@
+export const permissions: Record<string, string[]> = {
+  super_admin: ["*"],
+  administrator: [
+    "dashboard",
+    "services",
+    "products",
+    "projects",
+    "publications",
+    "careers",
+    "applications",
+    "inquiries",
+    "partnerships",
+    "settings",
+    "business_divisions",
+    "industries",
+    "case_studies",
+    "media",
+    "audit",
+  ],
+  content_manager: [
+    "dashboard",
+    "business_divisions",
+    "industries",
+    "services",
+    "products",
+    "projects",
+    "publications",
+    "careers",
+    "media",
+    "case_studies",
+  ],
+  project_manager: [
+    "dashboard",
+    "projects",
+    "case_studies",
+    "partnerships",
+    "media",
+  ],
+  editor: ["dashboard", "publications", "media"],
+};
+export const can = (role: string, module: string) =>
+  permissions[role]?.some((v) => v === "*" || v === module) ?? false;
