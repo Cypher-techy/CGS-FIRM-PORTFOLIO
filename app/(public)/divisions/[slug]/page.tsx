@@ -12,7 +12,7 @@ import {
   FlaskConical,
 } from "lucide-react";
 import { PageHero, Reveal, SectionHeading } from "@/components/ui";
-import { collection } from "@/lib/content";
+import { collection, optionalCollection } from "@/lib/content";
 
 const ICONS: Record<string, typeof Leaf> = {
   Leaf,
@@ -34,7 +34,7 @@ export default async function DivisionDetailPage({
 
   const [DIVISIONS, SERVICES] = await Promise.all([
     collection("DIVISIONS"),
-    collection("SERVICES"),
+    optionalCollection("SERVICES"),
   ]);
   const division = DIVISIONS.find((d) => d.slug === params.slug);
   if (!division) notFound();

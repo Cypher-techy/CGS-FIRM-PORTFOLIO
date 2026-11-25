@@ -16,7 +16,12 @@ export async function POST() {
           ),
       },
     });
-    await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut({ scope: "local" });
+    if (error)
+      return NextResponse.json(
+        { error: "Sign-out could not be confirmed." },
+        { status: 503 },
+      );
   }
 
   return NextResponse.json({ ok: true });

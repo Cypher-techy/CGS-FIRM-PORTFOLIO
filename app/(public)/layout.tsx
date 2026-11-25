@@ -1,8 +1,25 @@
 import { CopyProvider } from "@/components/CopyContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { settings, copyFor, collection } from "@/lib/content";
+import { settings, copyFor, optionalCollection } from "@/lib/content";
 import { linksFrom } from "@/lib/links";
+import { defaultTitle, defaultDescription } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
+export async function generateMetadata(): Promise<Metadata> {
+  const s = await settings();
+  return {
+    title: {
+      default: typeof s.site_title === "string" ? s.site_title : defaultTitle,
+      template: "%s | Cypher Green Systems",
+    },
+    description:
+      typeof s.seo_description === "string"
+        ? s.seo_description
+        : defaultDescription,
+  };
+}
 export default async function PublicLayout({
   children,
 }: {
@@ -40,7 +57,7 @@ export default async function PublicLayout({
             ? s.footer_description
             : undefined
         }
-        products={await collection("PRODUCTS")}
+        products={await optionalCollection("PRODUCTS")}
         custom={linksFrom(s.footer)}
         social={linksFrom(s.social_links, true)}
         email={typeof s.contact_email === "string" ? s.contact_email : ""}

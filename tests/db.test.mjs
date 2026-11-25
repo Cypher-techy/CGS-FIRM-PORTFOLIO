@@ -10,6 +10,15 @@ test("Schema, seeds, CRUD, privacy and the five-role permission matrix", async (
       `create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create schema storage;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);create table storage.objects(bucket_id text);grant usage on schema auth to anon,authenticated;alter default privileges in schema public grant select,insert,update,delete on tables to anon,authenticated,service_role;`,
     );
     await db.exec(await readFile("supabase/schema.sql", "utf8"));
+    await db.exec(await readFile("supabase/check-production.sql", "utf8"));
+    // Repair grant drift on the canonical schema, twice, without changing rows or policies.
+    const repair = await readFile(
+      "supabase/repairs/restore-public-select.sql",
+      "utf8",
+    );
+    await db.exec("revoke select on business_divisions from anon");
+    await db.exec(repair);
+    await db.exec(repair);
     const seed = await readFile("supabase/seed.sql", "utf8");
     await db.exec(seed);
     await db.exec(seed);
@@ -139,6 +148,30 @@ test("Schema, seeds, CRUD, privacy and the five-role permission matrix", async (
       }
     }
     await db.exec("reset role;set request.jwt.claim.sub='';set role anon");
+    for (const [table, order] of Object.entries({
+      business_divisions: "sort_order",
+      services: "created_at",
+      products: "created_at",
+      projects: "created_at",
+      industries: "sort_order",
+      publications: "published_at",
+      careers: "created_at",
+    })) {
+      const { rows } = await db.query(
+        `select * from ${table} where published order by ${order},slug`,
+      );
+      if (table !== "careers")
+        assert.ok(rows.length, `anon can see seeded ${table}`);
+      assert.ok(rows.every((r) => r.published));
+      if (table === "services")
+        assert.ok(rows.every((r) => r.division_name && r.division_id));
+      if (table === "publications")
+        assert.ok(rows.every((r) => r.published_at));
+    }
+    await db.query("select key,value from website_settings");
+    await db.query(
+      "select c.id,c.title,c.body,c.results from case_studies c join projects p on p.id=c.project_id where c.published and p.published",
+    );
     assert.equal(
       (await db.query("select * from publications where slug='draft'")).rows
         .length,

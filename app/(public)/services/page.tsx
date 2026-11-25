@@ -2,7 +2,7 @@ import { copyFor } from "@/lib/content";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PageHero, Reveal, SectionHeading, EmptyState } from "@/components/ui";
-import { collection } from "@/lib/content";
+import { collection, optionalCollection } from "@/lib/content";
 
 export default async function ServicesPage({
   searchParams: pending,
@@ -15,7 +15,7 @@ export default async function ServicesPage({
 
   const [SERVICES, DIVISIONS] = await Promise.all([
     collection("SERVICES"),
-    collection("DIVISIONS"),
+    optionalCollection("DIVISIONS"),
   ]);
   const filter = searchParams.division;
   const list = SERVICES.filter(
