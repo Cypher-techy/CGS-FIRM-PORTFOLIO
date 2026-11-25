@@ -353,6 +353,9 @@ button:disabled {
 }
 .field-hero:not(.view-globe) .mission-copy > p {
   margin-inline: auto;
+  text-align: justify;
+  text-align-last: start;
+  hyphens: auto;
 }
 .field-hero:not(.view-globe) .hero-actions {
   justify-content: center;
