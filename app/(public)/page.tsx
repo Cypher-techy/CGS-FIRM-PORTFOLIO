@@ -93,8 +93,8 @@ export default async function HomePage() {
       </FieldHero>
       {/* ── DIVISIONS ────────────────────────────────────────── */}
       <section id="divisions" className="division-band py-14 lg:py-16">
-        <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-6">
+        <div className="division-chapter container-x">
+          <div className="division-intro flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
               eyebrow={c("01_our_capabilities")}
               title={c("our_business_divisions")}
@@ -107,6 +107,7 @@ export default async function HomePage() {
                 {c("all_divisions")} <ArrowRight className="h-4 w-4" />
               </Link>
             </Reveal>
+            <span className="chapter-progress" aria-hidden="true" />
           </div>
           <div className="division-grid mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {DIVISIONS.map((d, i) => {
