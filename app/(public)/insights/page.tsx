@@ -69,7 +69,7 @@ export default async function InsightsPage({
             <Link
               key={t}
               href={`/insights?type=${t}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
-              className={`rounded-full px-4 py-2 text-sm font-bold transition ${type === t ? "bg-forest-900 text-white" : "bg-white text-forest-900 hover:bg-mist"}`}
+              className={`rounded-full px-4 py-2 text-sm font-bold transition ${type === t ? "bg-forest-900 text-white" : "bg-surface text-action hover:bg-mist"}`}
             >
               {t}
             </Link>
@@ -102,7 +102,7 @@ export default async function InsightsPage({
                     </span>
                   </div>
                   <Link href={`/insights/${p.slug}`}>
-                    <h2 className="mt-4 font-display text-xl font-bold leading-snug text-forest-950 group-hover:text-forest-700">
+                    <h2 className="mt-4 font-display text-xl font-bold leading-snug text-action group-hover:text-action">
                       {p.title}
                     </h2>
                   </Link>
@@ -113,7 +113,7 @@ export default async function InsightsPage({
                     {p.tags.map((t) => (
                       <span
                         key={t}
-                        className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold text-forest-900"
+                        className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold text-action"
                       >
                         {t}
                       </span>
@@ -122,7 +122,7 @@ export default async function InsightsPage({
                   <div className="mt-6 flex items-center gap-4">
                     <Link
                       href={`/insights/${p.slug}`}
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-forest-800"
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-action"
                     >
                       {c("read")} <ArrowUpRight className="h-4 w-4" />
                     </Link>

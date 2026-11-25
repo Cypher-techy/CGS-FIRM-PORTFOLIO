@@ -69,7 +69,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{document.documentElement.dataset.theme=localStorage.getItem('cgs-theme')==='dark'?'dark':'light'}catch{}`,
+          }}
+        />
+      </head>
       <body>
         <script
           type="application/ld+json"

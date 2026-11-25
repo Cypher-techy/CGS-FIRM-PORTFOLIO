@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
 export function Reveal({
@@ -12,16 +12,36 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const node = ref.current;
+    if (
+      !node ||
+      !("IntersectionObserver" in window) ||
+      matchMedia("(prefers-reduced-motion:reduce)").matches ||
+      node.getBoundingClientRect().top < innerHeight
+    )
+      return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.add("revealed");
+          obs.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px 20px" },
+    );
+    obs.observe(node);
+    return () => obs.disconnect();
+  }, []);
   return (
-    <motion.div
+    <div
+      ref={ref}
       className={className}
-      initial={false}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, delay, ease: "easeOut" }}
+      style={{ animationDelay: `${Math.min(delay, 0.09)}s` }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -46,7 +66,7 @@ export function SectionHeading({
     >
       <p className="eyebrow">{eyebrow}</p>
       <h2
-        className={`mt-4 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl ${dark ? "text-white" : "text-forest-950"}`}
+        className={`mt-4 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl ${dark ? "text-white" : "text-action"}`}
       >
         {title}
       </h2>
@@ -74,11 +94,7 @@ export function PageHero({
     <section className="topo-bg relative overflow-hidden bg-forest-950 pb-20 pt-36 text-white sm:pt-44">
       <div className="grid-bg absolute inset-0 opacity-60" aria-hidden />
       <div className="container-x relative">
-        <motion.div
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="page-arrive">
           <p className="eyebrow">{eyebrow}</p>
           <h1 className="mt-4 max-w-4xl font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
             {title}
@@ -88,7 +104,7 @@ export function PageHero({
               {description}
             </p>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -103,7 +119,7 @@ export function EmptyState({
 }) {
   return (
     <div className="card p-10 text-center">
-      <p className="font-display text-xl font-bold text-forest-950">{title}</p>
+      <p className="font-display text-xl font-bold text-action">{title}</p>
       <p className="mt-2 text-sm text-slate2">{message}</p>
     </div>
   );

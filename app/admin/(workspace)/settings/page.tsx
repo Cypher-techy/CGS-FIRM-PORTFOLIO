@@ -126,7 +126,7 @@ export default function AdminSettingsPage() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-extrabold text-forest-950">
+      <h1 className="font-display text-3xl font-extrabold text-action">
         Settings & Audit
       </h1>
       <p className="mt-1 text-slate2">
@@ -145,7 +145,7 @@ export default function AdminSettingsPage() {
       )}
 
       {notice && (
-        <p className="mt-4 flex items-center gap-2 rounded-xl bg-emerald2/15 px-4 py-3 text-sm font-semibold text-forest-900">
+        <p className="mt-4 flex items-center gap-2 rounded-xl bg-emerald2/15 px-4 py-3 text-sm font-semibold text-action">
           <CheckCircle2 className="h-5 w-5 text-emerald2" /> {notice}
         </p>
       )}
@@ -159,7 +159,7 @@ export default function AdminSettingsPage() {
       )}
 
       <div className="card mt-6 p-7">
-        <h2 className="font-display text-lg font-bold text-forest-950">
+        <h2 className="font-display text-lg font-bold text-action">
           Website Settings
         </h2>
         {loading ? (
@@ -285,9 +285,7 @@ function AuditLogs() {
   if (!configured) return null;
   return (
     <div className="card mt-8 p-7">
-      <h2 className="font-display text-lg font-bold text-forest-950">
-        Audit Logs
-      </h2>
+      <h2 className="font-display text-lg font-bold text-action">Audit Logs</h2>
       <p className="mt-1 text-sm text-slate2">
         Every administrative create, update and delete is recorded
         automatically.
@@ -298,7 +296,7 @@ function AuditLogs() {
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead>
-              <tr className="border-b border-forest-900/10 bg-mist">
+              <tr className="border-b border-line bg-mist">
                 <th className="px-4 py-3 text-xs font-bold uppercase tracking-wider">
                   When
                 </th>
@@ -317,18 +315,18 @@ function AuditLogs() {
               {logs.map((l) => (
                 <tr
                   key={String(l.id)}
-                  className="border-b border-forest-900/5 last:border-0"
+                  className="border-b border-line last:border-0"
                 >
-                  <td className="px-4 py-3 text-slate-700">
+                  <td className="px-4 py-3 text-slate2">
                     {new Date(String(l.created_at)).toLocaleString()}
                   </td>
-                  <td className="px-4 py-3 text-slate-700">
+                  <td className="px-4 py-3 text-slate2">
                     {String(l.actor_email ?? "—")}
                   </td>
-                  <td className="px-4 py-3 font-semibold text-forest-900">
+                  <td className="px-4 py-3 font-semibold text-action">
                     {String(l.action)}
                   </td>
-                  <td className="px-4 py-3 text-slate-700">
+                  <td className="px-4 py-3 text-slate2">
                     {String(l.entity)} /{" "}
                     {String(l.entity_id ?? "—").slice(0, 8)}
                   </td>

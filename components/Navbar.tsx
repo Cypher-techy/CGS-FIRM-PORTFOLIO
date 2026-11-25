@@ -1,4 +1,5 @@
 "use client";
+import ThemeToggle from "./ThemeToggle";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -38,10 +39,17 @@ export default function Navbar({
     set(false);
     menu(false);
   }, [path]);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const read = () => setScrolled(scrollY > 16);
+    read();
+    window.addEventListener("scroll", read, { passive: true });
+    return () => window.removeEventListener("scroll", read);
+  }, []);
   if (path.startsWith("/admin")) return null;
   return (
     <header
-      className="mast"
+      className={scrolled ? "mast scrolled" : "mast"}
       onKeyDown={(e) => {
         if (e.key === "Escape") {
           set(false);
@@ -56,11 +64,18 @@ export default function Navbar({
           aria-label="Cypher Green Systems home"
         >
           <img
-            className="h-auto w-[83px]"
+            className="brand-dark"
             src="/brand/cgs-mark.webp"
             alt="CGS"
             width="280"
             height="109"
+          />
+          <img
+            className="brand-light"
+            src="/brand/cgs-mark-light.webp"
+            alt="CGS"
+            width="83"
+            height="34"
           />
           <span className="brand-long">
             Cypher Green
@@ -107,6 +122,7 @@ export default function Navbar({
           </div>
         </nav>
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <Link href="/contact" className="contact-nav">
             Contact Us <ArrowUpRight size={16} />
           </Link>

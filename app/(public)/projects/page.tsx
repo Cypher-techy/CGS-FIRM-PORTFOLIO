@@ -1,3 +1,4 @@
+import PortfolioImage from "@/components/PortfolioImage";
 import { EmptyState } from "@/components/ui";
 import { copyFor } from "@/lib/content";
 import Link from "next/link";
@@ -32,10 +33,8 @@ export default async function ProjectsPage() {
         <Reveal>
           <div className="card flex items-start gap-4 p-6">
             <BadgeCheck className="mt-0.5 h-6 w-6 shrink-0 text-emerald2" />
-            <p className="text-sm leading-relaxed text-slate-700">
-              <strong className="text-forest-950">
-                {c("transparency_note")}
-              </strong>{" "}
+            <p className="text-sm leading-relaxed text-slate2">
+              <strong className="text-action">{c("transparency_note")}</strong>{" "}
               {c("these_are_client_commissioned_projects_cgs_presents")}{" "}
             </p>
           </div>
@@ -45,13 +44,19 @@ export default async function ProjectsPage() {
           {PROJECTS.map((p, i) => (
             <Reveal key={p.slug} delay={i * 0.05}>
               <article className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
-                <div className="bg-gradient-to-br from-forest-800 to-forest-950 p-6 text-white">
+                <PortfolioImage
+                  section="projects"
+                  slug={p.slug}
+                  name={p.name}
+                  images={p.screenshots}
+                />
+                <div className="bg-forest-800 p-6 text-white">
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-bold uppercase tracking-wider text-emerald2-light">
                       {p.category}
                     </p>
                     {p.featured && (
-                      <span className="rounded-full bg-emerald2 px-2.5 py-0.5 text-[11px] font-bold text-forest-950">
+                      <span className="rounded-full bg-sage px-2.5 py-0.5 text-[11px] font-bold text-forest-950">
                         {c("featured")}
                       </span>
                     )}
@@ -71,7 +76,7 @@ export default async function ProjectsPage() {
                     {p.technologies.map((t) => (
                       <span
                         key={t}
-                        className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold text-forest-900"
+                        className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold text-action"
                       >
                         {t}
                       </span>
@@ -88,7 +93,7 @@ export default async function ProjectsPage() {
                       href={p.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-sm font-bold text-forest-800 hover:text-emerald2"
+                      className="inline-flex items-center gap-1 text-sm font-bold text-action hover:text-emerald2"
                     >
                       {c("live_site")} <ExternalLink className="h-4 w-4" />
                     </a>

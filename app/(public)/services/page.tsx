@@ -39,7 +39,7 @@ export default async function ServicesPage({
         >
           <Link
             href="/services"
-            className={`rounded-full px-4 py-2 text-sm font-bold transition ${!filter ? "bg-forest-900 text-white" : "bg-white text-forest-900 hover:bg-mist"}`}
+            className={`rounded-full px-4 py-2 text-sm font-bold transition ${!filter ? "bg-forest-900 text-white" : "bg-surface text-action hover:bg-mist"}`}
           >
             {c("all_services")}{" "}
           </Link>
@@ -47,7 +47,7 @@ export default async function ServicesPage({
             <Link
               key={d.slug}
               href={`/services?division=${encodeURIComponent(d.name)}`}
-              className={`rounded-full px-4 py-2 text-sm font-bold transition ${filter === d.name ? "bg-forest-900 text-white" : "bg-white text-forest-900 hover:bg-mist"}`}
+              className={`rounded-full px-4 py-2 text-sm font-bold transition ${filter === d.name ? "bg-forest-900 text-white" : "bg-surface text-action hover:bg-mist"}`}
             >
               {d.name}
             </Link>
@@ -72,7 +72,7 @@ export default async function ServicesPage({
                   <p className="text-xs font-bold uppercase tracking-wider text-emerald2">
                     {s.division}
                   </p>
-                  <h2 className="mt-2 font-display text-lg font-bold text-forest-950">
+                  <h2 className="mt-2 font-display text-lg font-bold text-action">
                     {s.title}
                   </h2>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
@@ -82,13 +82,13 @@ export default async function ServicesPage({
                     {s.technologies.slice(0, 3).map((t) => (
                       <span
                         key={t}
-                        className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold text-forest-900"
+                        className="rounded-full bg-mist px-2.5 py-1 text-[11px] font-semibold text-action"
                       >
                         {t}
                       </span>
                     ))}
                   </div>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-forest-800">
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-action">
                     {c("view_enquire")} <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </Link>

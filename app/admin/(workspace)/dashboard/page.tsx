@@ -110,7 +110,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-extrabold text-forest-950">
+      <h1 className="font-display text-3xl font-extrabold text-action">
         Overview
       </h1>
       <p className="mt-1 text-slate2">
@@ -147,7 +147,7 @@ export default function DashboardPage() {
                 </span>
                 <ArrowRight className="h-5 w-5 text-slate2 transition group-hover:translate-x-1 group-hover:text-emerald2" />
               </div>
-              <p className="mt-4 font-display text-3xl font-extrabold text-forest-950">
+              <p className="mt-4 font-display text-3xl font-extrabold text-action">
                 {configured ? (counts[c.label] ?? 0) : "—"}
               </p>
               <p className="mt-1 text-sm font-semibold text-slate2">

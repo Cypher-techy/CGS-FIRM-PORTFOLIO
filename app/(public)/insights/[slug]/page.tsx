@@ -27,7 +27,7 @@ export default async function InsightDetailPage({
       <div className="container-x max-w-4xl">
         <Link
           href="/insights"
-          className="inline-flex items-center gap-2 text-sm font-bold text-forest-800 hover:text-emerald2"
+          className="inline-flex items-center gap-2 text-sm font-bold text-action hover:text-emerald2"
         >
           <ArrowLeft className="h-4 w-4" /> {c("all_insights")}{" "}
         </Link>
@@ -46,7 +46,7 @@ export default async function InsightDetailPage({
               })}
             </span>
           </div>
-          <h1 className="mt-5 font-display text-3xl font-extrabold leading-tight tracking-tight text-forest-950 sm:text-5xl">
+          <h1 className="mt-5 font-display text-3xl font-extrabold leading-tight tracking-tight text-action sm:text-5xl">
             {pub.title}
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-slate2">
@@ -57,7 +57,7 @@ export default async function InsightDetailPage({
             {pub.tags.map((t) => (
               <span
                 key={t}
-                className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-forest-900"
+                className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-action"
               >
                 {t}
               </span>
@@ -66,7 +66,7 @@ export default async function InsightDetailPage({
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="prose-cgs mt-10 border-t border-forest-900/10 pt-10">
+          <div className="prose-cgs mt-10 border-t border-line pt-10">
             {pub.body.map((para, i) => (
               <p key={i}>{para}</p>
             ))}
@@ -77,7 +77,7 @@ export default async function InsightDetailPage({
           <Reveal>
             <div className="card mt-10 flex flex-col items-center justify-between gap-4 p-7 sm:flex-row">
               <div>
-                <h2 className="font-display text-lg font-bold text-forest-950">
+                <h2 className="font-display text-lg font-bold text-action">
                   {c("download_this_publication")}
                 </h2>
                 <p className="text-sm text-slate2">
@@ -106,7 +106,7 @@ export default async function InsightDetailPage({
 
         {related.length > 0 && (
           <div className="mt-16">
-            <h2 className="font-display text-2xl font-extrabold text-forest-950">
+            <h2 className="font-display text-2xl font-extrabold text-action">
               {c("related_reading")}
             </h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -119,10 +119,10 @@ export default async function InsightDetailPage({
                   <p className="text-xs font-bold uppercase tracking-wider text-emerald2">
                     {r.type} · {r.category}
                   </p>
-                  <h3 className="mt-2 font-display font-bold text-forest-950">
+                  <h3 className="mt-2 font-display font-bold text-action">
                     {r.title}
                   </h3>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-forest-800">
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-action">
                     {c("read")} <ArrowRight className="h-4 w-4" />
                   </span>
                 </Link>

@@ -125,7 +125,7 @@ export default function AdminModule({
     <div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-extrabold text-forest-950">
+          <h1 className="font-display text-3xl font-extrabold text-action">
             {title}
           </h1>
           <p className="mt-1 text-slate2">{description}</p>
@@ -166,7 +166,7 @@ export default function AdminModule({
         />
       )}
       {notice && (
-        <p className="mt-4 flex items-center gap-2 rounded-xl bg-emerald2/15 px-4 py-3 text-sm font-semibold text-forest-900">
+        <p className="mt-4 flex items-center gap-2 rounded-xl bg-emerald2/15 px-4 py-3 text-sm font-semibold text-action">
           <CheckCircle2 className="h-5 w-5 text-emerald2" /> {notice}
         </p>
       )}
@@ -186,7 +186,7 @@ export default function AdminModule({
           </div>
         ) : rows.length === 0 ? (
           <div className="p-16 text-center">
-            <p className="font-display text-lg font-bold text-forest-950">
+            <p className="font-display text-lg font-bold text-action">
               No records yet
             </p>
             <p className="mt-1 text-sm text-slate2">
@@ -199,26 +199,26 @@ export default function AdminModule({
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] text-left text-sm">
               <thead>
-                <tr className="border-b border-forest-900/10 bg-mist">
+                <tr className="border-b border-line bg-mist">
                   {columns.map((c) => (
                     <th
                       key={c.key}
-                      className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-forest-900"
+                      className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-action"
                     >
                       {c.label}
                     </th>
                   ))}
                   {"published" in rows[0] && (
-                    <th className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-forest-900">
+                    <th className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-action">
                       Published
                     </th>
                   )}
                   {statusField && (
-                    <th className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-forest-900">
+                    <th className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-action">
                       Status
                     </th>
                   )}
-                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-forest-900">
+                  <th className="px-4 py-3 text-xs font-bold uppercase tracking-wider text-action">
                     Actions
                   </th>
                 </tr>
@@ -227,12 +227,12 @@ export default function AdminModule({
                 {rows.map((row) => (
                   <tr
                     key={row.id}
-                    className="border-b border-forest-900/5 last:border-0 hover:bg-mist/50"
+                    className="border-b border-line last:border-0 hover:bg-mist/50"
                   >
                     {columns.map((c) => (
                       <td
                         key={c.key}
-                        className={`px-4 py-3 text-slate-700 ${c.truncate ? "max-w-[400px] whitespace-pre-wrap break-words" : ""}`}
+                        className={`px-4 py-3 text-slate2 ${c.truncate ? "max-w-[400px] whitespace-pre-wrap break-words" : ""}`}
                       >
                         {String(row[c.key] ?? "—")}
                       </td>
@@ -243,8 +243,8 @@ export default function AdminModule({
                           onClick={() => togglePublished(row)}
                           className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold ${
                             row.published
-                              ? "bg-emerald2/20 text-forest-900"
-                              : "bg-slate-200 text-slate-600"
+                              ? "bg-emerald2/20 text-action"
+                              : "bg-fog text-slate2"
                           }`}
                           aria-label={row.published ? "Unpublish" : "Publish"}
                         >
@@ -262,7 +262,7 @@ export default function AdminModule({
                         <select
                           value={String(row[statusField] ?? "")}
                           onChange={(e) => updateStatus(row, e.target.value)}
-                          className="rounded-lg border border-forest-900/15 bg-white px-2 py-1.5 text-xs font-semibold"
+                          className="rounded-lg border border-line bg-surface px-2 py-1.5 text-xs font-semibold"
                           aria-label="Update status"
                         >
                           {statusOptions.map((o) => (

@@ -43,7 +43,7 @@ function LoginForm() {
           <ShieldCheck className="h-6 w-6" />
         </span>
         <div>
-          <h1 className="font-display text-xl font-extrabold text-forest-950">
+          <h1 className="font-display text-xl font-extrabold text-action">
             CGS Admin
           </h1>
           <p className="text-sm text-slate2">Secure administrator sign-in</p>

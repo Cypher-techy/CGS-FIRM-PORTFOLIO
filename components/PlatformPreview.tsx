@@ -1,11 +1,14 @@
 "use client";
+import { previewImages } from "@/lib/portfolio-images";
 import { useState } from "react";
 import { ExternalLink, Monitor } from "lucide-react";
 export default function PlatformPreview({
+  slug,
   name,
   url,
   screenshots = [],
 }: {
+  slug: string;
   name: string;
   url: string;
   screenshots?: string[];
@@ -26,17 +29,18 @@ export default function PlatformPreview({
           Open site <ExternalLink size={14} />
         </a>
       </div>
-      {screenshots
-        .filter((s) => /^https:\/\//i.test(s))
-        .map((s, i) => (
-          <img
-            key={s}
-            src={s}
-            loading="lazy"
-            className="w-full"
-            alt={`${name} screenshot ${i + 1}`}
-          />
-        ))}
+      {previewImages(slug, screenshots).map((s, i) => (
+        <img
+          key={s}
+          src={s}
+          loading="lazy"
+          width="1056"
+          height="624"
+          decoding="async"
+          className="h-auto w-full"
+          alt={`${name} screenshot ${i + 1}`}
+        />
+      ))}
       {open ? (
         <>
           <iframe

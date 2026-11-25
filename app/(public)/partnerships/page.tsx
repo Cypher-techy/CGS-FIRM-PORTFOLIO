@@ -112,7 +112,7 @@ export default function PartnershipsPage() {
                 <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
                   <t.icon className="h-6 w-6" />
                 </span>
-                <h2 className="mt-4 font-display text-base font-bold text-forest-950">
+                <h2 className="mt-4 font-display text-base font-bold text-action">
                   {c(t.title, t.title)}
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate2">
@@ -149,7 +149,7 @@ export default function PartnershipsPage() {
                   c("nda_available_on_request"),
                   c("no_obligation_proposals_are_exploratory"),
                 ].map((t) => (
-                  <li key={t} className="flex gap-2.5 text-sm text-slate-700">
+                  <li key={t} className="flex gap-2.5 text-sm text-slate2">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald2" />{" "}
                     {t}
                   </li>
@@ -163,7 +163,7 @@ export default function PartnershipsPage() {
               {status === "done" ? (
                 <div className="py-10 text-center">
                   <CheckCircle2 className="mx-auto h-14 w-14 text-emerald2" />
-                  <h2 className="mt-4 font-display text-2xl font-extrabold text-forest-950">
+                  <h2 className="mt-4 font-display text-2xl font-extrabold text-action">
                     {c("proposal_received")}
                   </h2>
                   <p className="mx-auto mt-2 max-w-md text-slate2">{message}</p>

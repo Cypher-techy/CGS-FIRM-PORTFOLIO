@@ -35,6 +35,7 @@ export default async function ProductDetailPage({
       />
       <section className="container-x py-20">
         <PlatformPreview
+          slug={product.slug}
           name={product.name}
           url={product.url}
           screenshots={product.screenshots}
@@ -49,7 +50,7 @@ export default async function ProductDetailPage({
               {product.features.map((f) => (
                 <li
                   key={f}
-                  className="card flex items-start gap-3 p-5 text-sm font-medium text-slate-700"
+                  className="card flex items-start gap-3 p-5 text-sm font-medium text-slate2"
                 >
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald2" />{" "}
                   {f}
@@ -59,7 +60,7 @@ export default async function ProductDetailPage({
 
             <Reveal delay={0.1}>
               <div className="card mt-8 p-7">
-                <h3 className="flex items-center gap-2.5 font-display text-lg font-bold text-forest-950">
+                <h3 className="flex items-center gap-2.5 font-display text-lg font-bold text-action">
                   <Cpu className="h-5 w-5 text-emerald2" />{" "}
                   {c("technology_stack")}{" "}
                 </h3>
@@ -82,9 +83,7 @@ export default async function ProductDetailPage({
 
           <Reveal delay={0.1}>
             <div className="card sticky top-28 overflow-hidden">
-              <div
-                className={`bg-gradient-to-br ${product.accent} p-8 text-white`}
-              >
+              <div className={`bg-forest-800 p-8 text-white`}>
                 <span className="grid h-16 w-16 place-items-center rounded-2xl bg-white/20 font-display text-2xl font-extrabold">
                   <ProductTile
                     slug={product.slug}

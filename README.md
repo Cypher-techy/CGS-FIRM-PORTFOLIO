@@ -8,7 +8,7 @@ Use Node.js 22 and npm. Run `npm ci` and `npm run dev`. The public website works
 
 ## What is here
 
-- Next.js App Router, TypeScript, Tailwind, Framer Motion, Lucide and self-hosted fonts. The interactive orthographic globe supports pointer dragging and keyboard rotation; there is no third-party map token or tile dependency.
+- Next.js App Router, TypeScript, Tailwind, native CSS motion, Lucide and self-hosted fonts. The interactive orthographic globe supports pointer dragging and keyboard rotation; there is no third-party map token or tile dependency.
 - Twelve public sections, six divisions, fourteen service profiles, four product profiles, six separate commissioned projects, ten industries and searchable publications. Product and project pages support live previews and screenshot galleries. No invented vacancies, staff profiles, contact addresses or social accounts are required.
 - Supabase Auth, PostgreSQL, Storage, RLS, audit triggers, server-validated intake, shared database throttling and optional Resend notifications. `publications` holds news, articles, research and insights; `articles` is a security-invoker view. Role values are constrained by an enum and exposed through the `roles` view.
 - Independent `/admin` workspace: catalogue CRUD, publishing and featured placement, case notes, media/document uploads, applications and inquiry review, user access, settings and audit history. **Settings & Audit → Page / …** edits public page copy. Website settings also control SEO, navigation, footer links, confirmed email, office location and social profiles. Changes are read from the published database without rebuilding.
@@ -40,3 +40,9 @@ GitHub Actions runs the type, database, build and local smoke suites on pushes a
 ## Content and assets
 
 The supplied product/project directory determines inclusion and classification. Technical details for Kingangi Hotel, View Point Inn, Cypher FX and Chalar Farm Inventory were cross-checked against the corresponding public repositories under `Cypher-techy`. Unconfirmed product stacks are omitted. See `public/brand/CREDITS.md` and `public/atlas/CREDITS.md` for the existing CGS mark and globe imagery.
+
+## Design and interaction conventions
+
+Light mode is the default. The masthead and admin theme switches persist `cgs-theme` locally; documents read it before first paint. Use the `mist`, `surface`, `fog`, `ink`, `slate2`, `action` and `line` tokens for theme-dependent surfaces and text. Fixed forest/charcoal panels use light foregrounds in both themes. Product screenshots and scientific imagery keep their own colors, rather than being inverted in dark mode.
+
+Field plates switch manually between landscape photography and an on-demand globe. Native scrolling, one-time content reveals and scroll-snap rails avoid animation-library overhead, scroll hijacking and autoplay. Reduced motion disables transitions and smooth scrolling. Hero parallax is limited to fine-pointer desktop devices with sufficient resources. Photography, diagrams and interface capture provenance are documented in `public/field`, `public/atlas`, `public/portfolio` and `public/brand`.

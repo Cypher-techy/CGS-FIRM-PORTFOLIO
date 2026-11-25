@@ -1,0 +1,1 @@
+Landscape plate: real aerial photograph, “Aerial view of a winding river through lush green forest”, https://unsplash.com/photos/yQJfvo_9eBs (Unsplash). Resized and graded locally. Supplied as an editorial illustration, not a CGS project location. The division plates are original schematic diagrams, not survey results.

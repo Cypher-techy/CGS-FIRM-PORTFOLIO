@@ -1,3 +1,4 @@
+import PortfolioImage from "@/components/PortfolioImage";
 import { EmptyState } from "@/components/ui";
 import ProductTile from "@/components/ProductTile";
 import { copyFor } from "@/lib/content";
@@ -31,9 +32,15 @@ export default async function ProductsPage() {
           {PRODUCTS.map((p, i) => (
             <Reveal key={p.slug} delay={i * 0.06}>
               <article className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
-                <div className={`bg-gradient-to-br ${p.accent} p-8 text-white`}>
+                <PortfolioImage
+                  section="products"
+                  slug={p.slug}
+                  name={p.name}
+                  images={p.screenshots}
+                />
+                <div className={`bg-forest-800 p-8 text-white`}>
                   <div className="flex items-start justify-between">
-                    <span className="grid h-16 w-16 place-items-center rounded-2xl bg-white/20 font-display text-2xl font-extrabold backdrop-blur">
+                    <span className="grid h-16 w-16 place-items-center rounded-2xl bg-white/20 font-display text-2xl font-extrabold">
                       <ProductTile
                         slug={p.slug}
                         name={p.name}
@@ -59,7 +66,7 @@ export default async function ProductsPage() {
                   </p>
                   <ul className="mt-4 space-y-1.5">
                     {p.features.slice(0, 3).map((f) => (
-                      <li key={f} className="flex gap-2 text-sm text-slate-700">
+                      <li key={f} className="flex gap-2 text-sm text-slate2">
                         <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald2" />{" "}
                         {f}
                       </li>

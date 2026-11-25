@@ -25,7 +25,7 @@ function Block({
   return (
     <Reveal>
       <div className="card p-7">
-        <h3 className="flex items-center gap-2.5 font-display text-lg font-bold text-forest-950">
+        <h3 className="flex items-center gap-2.5 font-display text-lg font-bold text-action">
           <span className="grid h-10 w-10 place-items-center rounded-xl bg-forest-900 text-emerald2-light">
             <Icon className="h-5 w-5" />
           </span>
@@ -75,14 +75,14 @@ export default async function ServiceDetailPage({
         </p>
         <div className="grid gap-6 lg:grid-cols-2">
           <Block icon={AlertTriangle} title={c("problem_addressed")}>
-            <p className="leading-relaxed text-slate-700">{service.problem}</p>
+            <p className="leading-relaxed text-slate2">{service.problem}</p>
           </Block>
           <Block icon={ListChecks} title={c("scope_of_work")}>
             <ul className="space-y-2.5">
               {service.scope.map((s) => (
                 <li
                   key={s}
-                  className="flex gap-2.5 text-sm leading-relaxed text-slate-700"
+                  className="flex gap-2.5 text-sm leading-relaxed text-slate2"
                 >
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald2" />{" "}
                   {s}
@@ -95,7 +95,7 @@ export default async function ServiceDetailPage({
               {service.deliverables.map((d) => (
                 <li
                   key={d}
-                  className="flex gap-2.5 text-sm leading-relaxed text-slate-700"
+                  className="flex gap-2.5 text-sm leading-relaxed text-slate2"
                 >
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald2" />{" "}
                   {d}
@@ -108,13 +108,13 @@ export default async function ServiceDetailPage({
               {service.industries.map((i) => (
                 <span
                   key={i}
-                  className="rounded-full bg-mist px-3 py-1.5 text-xs font-semibold text-forest-900"
+                  className="rounded-full bg-mist px-3 py-1.5 text-xs font-semibold text-action"
                 >
                   {i}
                 </span>
               ))}
             </div>
-            <h4 className="mt-6 flex items-center gap-2 font-display text-sm font-bold text-forest-950">
+            <h4 className="mt-6 flex items-center gap-2 font-display text-sm font-bold text-action">
               <Cpu className="h-4 w-4 text-emerald2" />{" "}
               {c("technologies_methodologies")}{" "}
             </h4>

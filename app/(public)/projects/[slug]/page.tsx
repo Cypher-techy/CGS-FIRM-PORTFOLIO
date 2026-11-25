@@ -38,6 +38,7 @@ export default async function ProjectDetailPage({
       />
       <section className="container-x py-20">
         <PlatformPreview
+          slug={project.slug}
           name={project.name}
           url={project.url}
           screenshots={project.screenshots}
@@ -46,16 +47,16 @@ export default async function ProjectDetailPage({
           <div className="space-y-10">
             <Reveal>
               <div className="card p-7">
-                <h2 className="flex items-center gap-2.5 font-display text-lg font-bold text-forest-950">
+                <h2 className="flex items-center gap-2.5 font-display text-lg font-bold text-action">
                   <AlertTriangle className="h-5 w-5 text-emerald2" />{" "}
                   {c("problem_objectives")}{" "}
                 </h2>
-                <p className="mt-3 leading-relaxed text-slate-700">
+                <p className="mt-3 leading-relaxed text-slate2">
                   {project.problem}
                 </p>
                 <ul className="mt-4 space-y-2">
                   {project.objectives.map((o) => (
-                    <li key={o} className="flex gap-2.5 text-sm text-slate-700">
+                    <li key={o} className="flex gap-2.5 text-sm text-slate2">
                       <Target className="mt-0.5 h-4 w-4 shrink-0 text-emerald2" />{" "}
                       {o}
                     </li>
@@ -66,13 +67,13 @@ export default async function ProjectDetailPage({
 
             <Reveal>
               <div className="card p-7">
-                <h2 className="flex items-center gap-2.5 font-display text-lg font-bold text-forest-950">
+                <h2 className="flex items-center gap-2.5 font-display text-lg font-bold text-action">
                   <ListChecks className="h-5 w-5 text-emerald2" />{" "}
                   {c("scope_of_cgs_involvement")}{" "}
                 </h2>
                 <ul className="mt-3 space-y-2">
                   {project.scope.map((s) => (
-                    <li key={s} className="flex gap-2.5 text-sm text-slate-700">
+                    <li key={s} className="flex gap-2.5 text-sm text-slate2">
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald2" />{" "}
                       {s}
                     </li>
@@ -83,25 +84,25 @@ export default async function ProjectDetailPage({
 
             <Reveal>
               <div className="card p-7">
-                <h2 className="flex items-center gap-2.5 font-display text-lg font-bold text-forest-950">
+                <h2 className="flex items-center gap-2.5 font-display text-lg font-bold text-action">
                   <Wrench className="h-5 w-5 text-emerald2" />{" "}
                   {c("implemented_solution")}{" "}
                 </h2>
-                <p className="mt-3 leading-relaxed text-slate-700">
+                <p className="mt-3 leading-relaxed text-slate2">
                   {project.solution}
                 </p>
-                <h3 className="mt-5 font-display text-sm font-bold uppercase tracking-wider text-forest-950">
+                <h3 className="mt-5 font-display text-sm font-bold uppercase tracking-wider text-action">
                   {c("key_features")}
                 </h3>
                 <ul className="mt-3 grid gap-2 sm:grid-cols-2">
                   {project.features.map((f) => (
-                    <li key={f} className="flex gap-2 text-sm text-slate-700">
+                    <li key={f} className="flex gap-2 text-sm text-slate2">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald2" />{" "}
                       {f}
                     </li>
                   ))}
                 </ul>
-                <h3 className="mt-5 font-display text-sm font-bold uppercase tracking-wider text-forest-950">
+                <h3 className="mt-5 font-display text-sm font-bold uppercase tracking-wider text-action">
                   {c("technologies_used")}
                 </h3>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -120,7 +121,7 @@ export default async function ProjectDetailPage({
 
           <Reveal delay={0.1}>
             <div className="card sticky top-28 overflow-hidden">
-              <div className="bg-gradient-to-br from-forest-800 to-forest-950 p-7 text-white">
+              <div className="bg-forest-800 p-7 text-white">
                 <p className="text-xs font-bold uppercase tracking-wider text-emerald2-light">
                   {c("case_study")}
                 </p>

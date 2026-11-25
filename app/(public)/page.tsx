@@ -1,3 +1,4 @@
+import PortfolioImage from "@/components/PortfolioImage";
 import ProductTile from "@/components/ProductTile";
 import { copyFor } from "@/lib/content";
 import Link from "next/link";
@@ -18,10 +19,19 @@ import {
   Cpu,
   LineChart,
 } from "lucide-react";
-import GlobeCanvas from "@/components/Globe";
+import FieldHero from "@/components/FieldHero";
+import FeatureRail from "@/components/FeatureRail";
 import { Reveal, SectionHeading } from "@/components/ui";
 import { collection } from "@/lib/content";
 
+const plates: Record<string, [string, string]> = {
+  Leaf: ["terrain", "ENV"],
+  Globe: ["mapping", "GIS"],
+  Code2: ["systems", "SYS"],
+  BarChart3: ["data", "DAT"],
+  CloudSun: ["climate", "CLM"],
+  FlaskConical: ["research", "R&D"],
+};
 const ICONS: Record<string, typeof Leaf> = {
   Leaf,
   Globe,
@@ -49,54 +59,34 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="mission-hero">
-        <div className="sky" aria-hidden="true" />
-        <div className="container-x mission-inner">
-          <div className="mission-copy">
-            <div className="signal">
-              <span /> {c("technology_environment_opportunity")}
-            </div>
-            <h1>
-              {c("engineering_technology")}
-              <br />
-              <em>{c("advancing_sustainability")}</em>
-              <br />
-              {c("creating_opportunity")}
-            </h1>
-            <p>
-              {c(
-                "cypher_green_systems_connects_environmental_science_geospatial",
-              )}
-            </p>
-            <div className="hero-actions">
-              <Link className="primary-action" href="/services">
-                {c("explore_our_services")} <ArrowRight size={16} />
-              </Link>
-              <Link className="secondary-action" href="/projects">
-                {c("view_our_portfolio")} <ArrowUpRight size={16} />
-              </Link>
-            </div>
-            <Link className="partner-action" href="/partnerships">
-              <Handshake size={16} /> {c("partner_with_cgs")}{" "}
-              <ArrowUpRight size={13} />
-            </Link>
-          </div>
-          <GlobeCanvas />
+      <FieldHero>
+        <div className="signal">
+          <span /> {c("technology_environment_opportunity")}
         </div>
-        <div className="atlas-bar">
-          <div className="container-x flex items-center justify-between gap-6">
-            <span>
-              <i /> {c("systems_online")}
-            </span>
-            <span className="hidden sm:inline">
-              {c("01_17_s_nbsp_nbsp_36_49")}
-            </span>
-            <span>{c("cgs_nbsp_nbsp_earth_intelligence")}</span>
-          </div>
-        </div>
-      </section>
+        <h1>
+          {c("engineering_technology")}
+          <br />
+          <em>{c("advancing_sustainability")}</em>
+          <br />
+          {c("creating_opportunity")}
+        </h1>
+        <p>
+          {c("cypher_green_systems_connects_environmental_science_geospatial")}
+        </p>
+        <div className="hero-actions">
+          <Link className="primary-action" href="/services">
+            {c("explore_our_services")} <ArrowRight size={16} />
+          </Link>
+          <Link className="secondary-action" href="/projects">
+            {c("view_our_portfolio")} <ArrowUpRight size={16} />
+          </Link>
+          <Link className="partner-action" href="/partnerships">
+            {c("partner_with_cgs")} <ArrowUpRight size={13} />
+          </Link>
+        </div>{" "}
+      </FieldHero>
       {/* ── DIVISIONS ────────────────────────────────────────── */}
-      <section className="division-band py-14 lg:py-16">
+      <section id="divisions" className="division-band py-14 lg:py-16">
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
@@ -112,29 +102,36 @@ export default async function HomePage() {
               </Link>
             </Reveal>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="division-grid mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {DIVISIONS.map((d, i) => {
               const Icon = ICONS[d.icon] || Leaf;
+              const [art, code] = plates[d.icon] ?? ["terrain", "DIV"];
               return (
                 <Reveal key={d.slug} delay={i * 0.06}>
                   <Link
                     href={`/divisions/${d.slug}`}
-                    className="division-card card group relative flex h-full flex-col p-6 transition hover:-translate-y-1 hover:shadow-lift"
+                    className="division-card card group relative flex h-full flex-col overflow-hidden transition hover:-translate-y-1"
                   >
-                    <span className="grid h-12 w-12 place-items-center rounded-xl bg-forest-900 text-emerald2-light transition group-hover:bg-emerald2 group-hover:text-forest-950">
-                      <Icon className="h-6 w-6" />
-                    </span>
-                    <span className="division-num">
-                      {c("div_0")}
-                      {i + 1}
-                    </span>
-                    <h3 className="mt-5 font-display text-lg font-bold text-forest-950">
+                    <div className="division-plate">
+                      <img
+                        loading="lazy"
+                        width="460"
+                        height="150"
+                        src={`/field/${art}.svg`}
+                        alt=""
+                      />
+                      <span>
+                        <Icon size={16} /> {code} /{" "}
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <h3 className="mt-5 font-display text-lg font-bold text-action">
                       {d.name}
                     </h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
                       {d.short}
                     </p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-forest-800">
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-action">
                       {c("explore_division")}{" "}
                       <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
@@ -155,7 +152,7 @@ export default async function HomePage() {
             description={c("cgs_operates_at_the_intersection_of_environmental")}
           />
           <Reveal delay={0.1}>
-            <div className="space-y-4 text-base leading-relaxed text-slate-700">
+            <div className="space-y-4 text-base leading-relaxed text-slate2">
               <p>
                 {c(
                   "our_work_spans_environmental_assessment_and_sustainability",
@@ -205,13 +202,13 @@ export default async function HomePage() {
                 <p className="text-xs font-bold uppercase tracking-wider text-emerald2">
                   {s.division}
                 </p>
-                <h3 className="mt-2 font-display text-lg font-bold text-forest-950">
+                <h3 className="mt-2 font-display text-lg font-bold text-action">
                   {s.title}
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
                   {s.summary}
                 </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-forest-800">
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-action">
                   {c("view_service")} <ArrowUpRight className="h-4 w-4" />
                 </span>
               </Link>
@@ -238,12 +235,12 @@ export default async function HomePage() {
               </Link>
             </Reveal>
           </div>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <FeatureRail label="featured products">
             {PRODUCTS.map((p, i) => (
               <Reveal key={p.slug} delay={i * 0.06}>
-                <div className="flex h-full flex-col rounded-xl2 border border-white/12 bg-white/5 p-6 backdrop-blur transition hover:bg-white/10">
+                <div className="flex h-full flex-col rounded-xl2 border border-white/12 bg-white/5 p-6 transition hover:bg-white/10">
                   <div
-                    className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${p.accent} font-display text-xl font-extrabold text-white`}
+                    className={`grid h-14 w-14 place-items-center rounded-2xl bg-forest-800 font-display text-xl font-extrabold text-white`}
                   >
                     <ProductTile
                       slug={p.slug}
@@ -276,7 +273,7 @@ export default async function HomePage() {
                 </div>
               </Reveal>
             ))}
-          </div>
+          </FeatureRail>
         </div>
       </section>
 
@@ -296,11 +293,17 @@ export default async function HomePage() {
             </Link>
           </Reveal>
         </div>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <FeatureRail label="featured projects">
           {featuredProjects.map((p, i) => (
             <Reveal key={p.slug} delay={i * 0.06}>
               <article className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
-                <div className="bg-gradient-to-br from-forest-800 to-forest-950 p-6 text-white">
+                <PortfolioImage
+                  section="projects"
+                  slug={p.slug}
+                  name={p.name}
+                  images={p.screenshots}
+                />
+                <div className="bg-forest-800 p-6 text-white">
                   <p className="text-xs font-bold uppercase tracking-wider text-emerald2-light">
                     {p.category}
                   </p>
@@ -326,7 +329,7 @@ export default async function HomePage() {
                       href={p.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-sm font-bold text-forest-800 hover:text-emerald2"
+                      className="inline-flex items-center gap-1 text-sm font-bold text-action hover:text-emerald2"
                     >
                       {c("live_site")} <ExternalLink className="h-4 w-4" />
                     </a>
@@ -335,11 +338,11 @@ export default async function HomePage() {
               </article>
             </Reveal>
           ))}
-        </div>
+        </FeatureRail>
       </section>
 
       {/* ── RESEARCH ─────────────────────────────────────────── */}
-      <section className="bg-white py-20 lg:py-28">
+      <section className="bg-surface py-20 lg:py-28">
         <div className="container-x grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
             <div className="relative overflow-hidden rounded-xl2 bg-forest-950 p-8 text-white sm:p-12">
@@ -348,7 +351,7 @@ export default async function HomePage() {
                 aria-hidden
               />
               <div className="relative">
-                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-emerald2 text-forest-950">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-sage text-forest-950">
                   <FlaskConical className="h-7 w-7" />
                 </span>
                 <h3 className="mt-6 font-display text-2xl font-extrabold sm:text-3xl">
@@ -391,7 +394,7 @@ export default async function HomePage() {
                     className="card group flex items-center gap-4 p-5 transition hover:shadow-lift"
                   >
                     <span
-                      className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${p.accent} font-display font-extrabold text-white`}
+                      className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-forest-800 font-display font-extrabold text-white`}
                     >
                       <ProductTile
                         slug={p.slug}
@@ -400,14 +403,14 @@ export default async function HomePage() {
                       />
                     </span>
                     <span className="flex-1">
-                      <span className="block font-display font-bold text-forest-950">
+                      <span className="block font-display font-bold text-action">
                         {p.name}
                       </span>
                       <span className="block text-sm text-slate2">
                         {p.classification}
                       </span>
                     </span>
-                    <ArrowUpRight className="h-5 w-5 text-forest-800 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="h-5 w-5 text-action transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </Link>
                 </Reveal>
               ))}
@@ -432,7 +435,7 @@ export default async function HomePage() {
                 className="card group flex h-full flex-col p-5 text-center transition hover:-translate-y-1 hover:shadow-lift"
               >
                 <Building2 className="mx-auto h-7 w-7 text-emerald2" />
-                <h3 className="mt-3 font-display text-sm font-bold leading-snug text-forest-950">
+                <h3 className="mt-3 font-display text-sm font-bold leading-snug text-action">
                   {ind.name}
                 </h3>
               </Link>
@@ -502,13 +505,13 @@ export default async function HomePage() {
                     })}
                   </span>
                 </div>
-                <h3 className="mt-4 font-display text-xl font-bold leading-snug text-forest-950">
+                <h3 className="mt-4 font-display text-xl font-bold leading-snug text-action">
                   {p.title}
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-slate2">
                   {p.excerpt}
                 </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-forest-800">
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-action">
                   {c("read_insight")} <ArrowUpRight className="h-4 w-4" />
                 </span>
               </Link>
