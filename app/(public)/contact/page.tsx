@@ -219,6 +219,7 @@ function ContactForm() {
 
 export default function ContactPage() {
   const business = useBusinessContact();
+  const email = business.email.trim() || "cyphergreensystemsfirm@gmail.com";
   const c = useCopy("contact");
 
   return (
@@ -240,15 +241,13 @@ export default function ContactPage() {
             />
             <Reveal delay={0.1}>
               <div className="mt-8 space-y-4">
-                {business.email && (
-                  <a
-                    className="card flex gap-2 p-5"
-                    href={`mailto:${business.email}`}
-                  >
-                    <Mail size={18} />
-                    {business.email}
-                  </a>
-                )}
+                <a
+                  className="card flex items-center gap-2 p-5 text-action hover:underline"
+                  href={`mailto:${email}`}
+                >
+                  <Mail size={18} className="shrink-0" aria-hidden="true" />
+                  <span className="min-w-0 break-words">{email}</span>
+                </a>
                 {business.location && (
                   <p className="card flex gap-2 p-5">
                     <MapPin size={18} />
