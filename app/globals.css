@@ -346,6 +346,20 @@ button:disabled {
   min-height: 440px;
   padding-block: 52px 37px;
 }
+/* Center the landscape message across the full frame; keep the globe's split layout. */
+.field-hero:not(.view-globe) .mission-copy {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+.field-hero:not(.view-globe) .mission-copy > p {
+  margin-inline: auto;
+}
+.field-hero:not(.view-globe) .hero-actions {
+  justify-content: center;
+}
+.field-hero:not(.view-globe) .field-shade {
+  background: radial-gradient(ellipse at center, #101d26db 0%, #101d26bd 45%, #101d267a 100%);
+}
 .mission-copy h1 {
   font-size: clamp(40px, 4.35vw, 67px);
   letter-spacing: -0.055em;
