@@ -1,16 +1,21 @@
 import { siteUrl } from "@/lib/site-url";
 import type { MetadataRoute } from "next";
 import { collection } from "@/lib/content";
+import * as fallback from "@/lib/data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Sitemap generation must not take down the deployment when Supabase is
+  // temporarily unavailable or a content table has not been provisioned yet.
+  // Use the checked-in content catalogue as a fallback for each collection.
   const [DIVISIONS, SERVICES, PRODUCTS, PROJECTS, PUBLICATIONS] =
     await Promise.all([
-      collection("DIVISIONS"),
-      collection("SERVICES"),
-      collection("PRODUCTS"),
-      collection("PROJECTS"),
-      collection("PUBLICATIONS"),
+      collection("DIVISIONS").catch(() => fallback.DIVISIONS),
+      collection("SERVICES").catch(() => fallback.SERVICES),
+      collection("PRODUCTS").catch(() => fallback.PRODUCTS),
+      collection("PROJECTS").catch(() => fallback.PROJECTS),
+      collection("PUBLICATIONS").catch(() => fallback.PUBLICATIONS),
     ]);
+
   const base = siteUrl;
   const staticRoutes = [
     "",
