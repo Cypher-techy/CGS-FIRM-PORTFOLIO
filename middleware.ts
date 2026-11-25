@@ -3,8 +3,8 @@ import { createServerClient } from "@supabase/ssr";
 import { can } from "@/lib/access";
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  if (path === "/admin/login") return NextResponse.next();
-  const login = () => NextResponse.redirect(new URL("/admin/login", req.url));
+  if (path === "/techy/login") return NextResponse.next();
+  const login = () => NextResponse.redirect(new URL("/techy/login", req.url));
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL,
     key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return login();
@@ -35,4 +35,4 @@ export async function middleware(req: NextRequest) {
     });
   return res;
 }
-export const config = { matcher: ["/admin/:path*"] };
+export const config = { matcher: ["/techy/:path*"] };

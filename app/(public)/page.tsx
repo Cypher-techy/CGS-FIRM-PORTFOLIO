@@ -178,6 +178,22 @@ export default async function HomePage() {
             </div>
           </Reveal>
         </div>
+        <figure className="estuary-study">
+          <img
+            src="/field/estuary-720.webp"
+            srcSet="/field/estuary-720.webp 720w, /field/estuary-1440.webp 1440w"
+            sizes="(min-width: 1440px) 1300px, 92vw"
+            width="1440"
+            height="480"
+            loading="lazy"
+            decoding="async"
+            alt="Tidal channels branching through the marsh at Discovery Bay"
+          />
+          <figcaption>
+            <span>Discovery Bay</span>
+            <span>Estuary / Aerial study</span>
+          </figcaption>
+        </figure>
       </section>
 
       {/* ── FEATURED SERVICES ────────────────────────────────── */}

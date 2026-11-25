@@ -20,21 +20,21 @@ import {
 import LogoutButton from "./LogoutButton";
 
 const NAV = [
-  { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/services", label: "Services", icon: Briefcase },
-  { href: "/admin/products", label: "Products", icon: Package },
-  { href: "/admin/projects", label: "Projects", icon: FolderKanban },
-  { href: "/admin/publications", label: "Publications", icon: Newspaper },
-  { href: "/admin/careers", label: "Vacancies", icon: Users },
-  { href: "/admin/inquiries", label: "Inquiries", icon: Inbox },
-  { href: "/admin/partnerships", label: "Partnerships", icon: Handshake },
-  { href: "/admin/settings", label: "Settings & Audit", icon: Settings },
-  { href: "/admin/business_divisions", label: "Divisions", icon: Briefcase },
-  { href: "/admin/industries", label: "Industries", icon: Briefcase },
-  { href: "/admin/media", label: "Media library", icon: Package },
-  { href: "/admin/applications", label: "Applications", icon: Users },
-  { href: "/admin/case_studies", label: "Case studies", icon: FolderKanban },
-  { href: "/admin/profiles", label: "User roles", icon: Users },
+  { href: "/techy/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/techy/services", label: "Services", icon: Briefcase },
+  { href: "/techy/products", label: "Products", icon: Package },
+  { href: "/techy/projects", label: "Projects", icon: FolderKanban },
+  { href: "/techy/publications", label: "Publications", icon: Newspaper },
+  { href: "/techy/careers", label: "Vacancies", icon: Users },
+  { href: "/techy/inquiries", label: "Inquiries", icon: Inbox },
+  { href: "/techy/partnerships", label: "Partnerships", icon: Handshake },
+  { href: "/techy/settings", label: "Settings & Audit", icon: Settings },
+  { href: "/techy/business_divisions", label: "Divisions", icon: Briefcase },
+  { href: "/techy/industries", label: "Industries", icon: Briefcase },
+  { href: "/techy/media", label: "Media library", icon: Package },
+  { href: "/techy/applications", label: "Applications", icon: Users },
+  { href: "/techy/case_studies", label: "Case studies", icon: FolderKanban },
+  { href: "/techy/profiles", label: "User roles", icon: Users },
 ];
 
 export default async function AdminLayout({
@@ -42,18 +42,18 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (!isSupabaseConfigured()) redirect("/admin/login");
+  if (!isSupabaseConfigured()) redirect("/techy/login");
   const db = await createServerSupabase();
   const {
     data: { user },
   } = await db.auth.getUser();
-  if (!user) redirect("/admin/login");
+  if (!user) redirect("/techy/login");
   const { data } = await db
     .from("profiles")
     .select("role")
     .eq("id", user.id)
     .maybeSingle();
-  if (!data) redirect("/admin/login");
+  if (!data) redirect("/techy/login");
   const visible = NAV.filter((n) => can(data.role, n.href.split("/")[2]));
   return (
     <div className="min-h-screen bg-mist">
@@ -100,7 +100,7 @@ export default async function AdminLayout({
         <div className="min-w-0 flex-1">
           <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-surface/90 px-5 py-3 lg:hidden">
             <Link
-              href="/admin/dashboard"
+              href="/techy/dashboard"
               className="flex items-center gap-2 font-display font-extrabold text-action"
             >
               <ShieldCheck className="h-5 w-5 text-emerald2" /> CGS Admin

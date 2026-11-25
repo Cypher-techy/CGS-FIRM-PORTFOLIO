@@ -12,7 +12,7 @@ select id,email,'Super Administrator','super_admin'
 from auth.users where id = '<confirmed-user-uuid>'::uuid;
 ```
 
-Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and the **server-only** `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` or Vercel. Rebuild after changing public environment variables. Visit `/admin/login`. There are no demo credentials or bypass cookies. Super administrators can create further accounts and grant or revoke access in **User roles**. Removing the profile revokes dashboard access even if an Auth session remains valid.
+Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and the **server-only** `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` or Vercel. Rebuild after changing public environment variables. Visit `/techy/login`. There are no demo credentials or bypass cookies. Super administrators can create further accounts and grant or revoke access in **User roles**. Removing the profile revokes dashboard access even if an Auth session remains valid.
 
 ## Staff permissions
 

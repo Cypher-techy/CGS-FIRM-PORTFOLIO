@@ -12,3 +12,5 @@ The six homepage card photographs illustrate division capabilities, not CGS clie
 | Data Science & Analytics | [Performance analytics on a screen](https://images.unsplash.com/photo-1551288049-bebda4e38f71) |
 | Climate & Carbon | [Forest canopy in fog](https://unsplash.com/photos/9JNKIN9XRuE) |
 | Research & Innovation | [Arduino Mega circuit board](https://unsplash.com/photos/thr8z10rExI) |
+
+Homepage introduction: [Discovery Bay marsh from above](https://unsplash.com/photos/c4MEDTlcz4k), used as an editorial landscape study, not a CGS project site.
