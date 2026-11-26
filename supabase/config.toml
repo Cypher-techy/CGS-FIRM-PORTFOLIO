@@ -1,0 +1,8 @@
+project_id = "cgs-firm-portfolio"
+[db]
+major_version = 15
+[db.seed]
+# Initial content is a versioned migration, not a seed hook to rerun.
+enabled = false
+[auth]
+enable_signup = false

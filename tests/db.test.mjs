@@ -1,15 +1,19 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
 import { pgcrypto } from "@electric-sql/pglite/contrib/pgcrypto";
 test("Schema, seeds, CRUD, privacy and the five-role permission matrix", async () => {
   const db = new PGlite({ extensions: { pgcrypto } });
   try {
     await db.exec(
-      `create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create schema storage;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);create table storage.objects(bucket_id text);grant usage on schema auth to anon,authenticated;alter default privileges in schema public grant select,insert,update,delete on tables to anon,authenticated,service_role;`,
+      `create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create schema storage;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,deleted_at timestamptz,banned_until timestamptz);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);create table storage.objects(bucket_id text);grant usage on schema auth to anon,authenticated;alter default privileges in schema public grant select,insert,update,delete on tables to anon,authenticated,service_role;`,
     );
-    await db.exec(await readFile("supabase/schema.sql", "utf8"));
+    for (const migration of (await readdir("supabase/migrations")).sort()) {
+      assert.match(migration, /^\d{14}_.*\.sql$/);
+      await db.exec(await readFile(`supabase/migrations/${migration}`, "utf8"));
+    }
+    await db.exec(await readFile("supabase/verify-deployment.sql", "utf8"));
     await db.exec(await readFile("supabase/check-production.sql", "utf8"));
     // Repair grant drift on the canonical schema, twice, without changing rows or policies.
     const repair = await readFile(
@@ -88,6 +92,14 @@ test("Schema, seeds, CRUD, privacy and the five-role permission matrix", async (
         );
       }
       if (role === "super_admin") {
+        await assert.rejects(
+          db.exec("update profiles set role='editor' where id=auth.uid()"),
+          /own role/,
+        );
+        await assert.rejects(
+          db.exec("delete from profiles where id=auth.uid()"),
+          /own access/,
+        );
         for (const [table, values] of Object.entries({
           business_divisions: "slug,name",
           industries: "slug,name",
@@ -134,6 +146,20 @@ test("Schema, seeds, CRUD, privacy and the five-role permission matrix", async (
         );
       }
       if (role === "administrator") {
+        assert.equal(
+          (
+            await db.query(
+              "update profiles set role='super_admin' returning id",
+            )
+          ).rows.length,
+          0,
+        );
+        await assert.rejects(
+          db.exec(
+            "select public.bootstrap_cgs_owner(auth.uid(),'a@example.test',true)",
+          ),
+          /permission denied/,
+        );
         await db.exec(
           "insert into website_settings(key,value)values('site_title','\"CGS\"');update website_settings set value='\"Updated\"' where key='site_title';delete from website_settings where key='site_title';",
         );
@@ -206,6 +232,20 @@ test("Schema, seeds, CRUD, privacy and the five-role permission matrix", async (
       );
       await db.exec(`delete from ${t}`);
     }
+    await db.exec(
+      "reset role;set request.jwt.claim.sub=''; update profiles set role='administrator' where role='super_admin'; insert into auth.users(id,email,email_confirmed_at) values('30000000-0000-4000-8000-000000000009','owner@example.test',now()); set role service_role",
+    );
+    const owner = "30000000-0000-4000-8000-000000000009";
+    const provision = (email) =>
+      db.query("select public.bootstrap_cgs_owner($1,$2,false) id", [
+        owner,
+        email,
+      ]);
+    await assert.rejects(provision("wrong@example.test"), /not eligible/);
+    assert.equal((await provision("owner@example.test")).rows[0].id, owner);
+    assert.equal((await provision("owner@example.test")).rows[0].id, owner);
+    await db.exec("update profiles set role='editor' where role='super_admin'");
+    await assert.rejects(provision("owner@example.test"), /already consumed/);
   } finally {
     await db.close();
   }
