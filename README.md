@@ -33,7 +33,7 @@ npm run smoke         # crawl sitemap and internal links, verify destinations, a
 npm audit --omit=dev
 ```
 
-GitHub Actions runs the type, database, build and local smoke suites on pushes and pull requests. `npm run seed:generate` regenerates non-overwriting bootstrap inserts from `lib/data.ts`; never use it to replace live content.
+GitHub Actions runs the type, database, build and local smoke suites on pushes and pull requests. `npm run --silent seed:generate` prints proposed catalogue SQL for review; it does not rewrite a released migration. Database deployment is a separate [manually approved workflow](supabase/README.md).
 
 **Hosted acceptance:** Sign in with each of the five roles against staging. Create a draft service, update it, publish and unpublish it, checking the directory, detail route and sitemap each time. Upload an approved image and PDF and reject a mismatched upload. Submit one inquiry, proposal and application against a real staged vacancy; verify stored fields, notification delivery, staff review and audit entries. Check all ten external sites in a browser (their uptime, content and frame policies are controlled by their operators). Confirm mobile navigation, canonical URL, Search Console and Analytics on the final domain. The local checks do not substitute for hosted Auth, deliverability or a Vercel production deployment.
 

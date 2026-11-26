@@ -9,3 +9,7 @@ out/
 .vercel
 
 *.tsbuildinfo
+
+# Local Supabase CLI state (includes linked project metadata)
+supabase/.temp/
+supabase/.branches/

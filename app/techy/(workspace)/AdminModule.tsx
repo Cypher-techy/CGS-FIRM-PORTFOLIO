@@ -108,7 +108,13 @@ export default function AdminModule({
   }
 
   async function remove(row: Row) {
-    if (!confirm("Delete this record permanently? This cannot be undone."))
+    if (
+      !confirm(
+        table === "profiles"
+          ? "Deactivate this staff member’s workspace access? Their Auth identity is retained."
+          : "Delete this record permanently? This cannot be undone.",
+      )
+    )
       return;
     const supabase = createClient();
     const { error } = await supabase
@@ -283,9 +289,14 @@ export default function AdminModule({
                       <button
                         onClick={() => remove(row)}
                         className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-bold text-red-600 hover:bg-red-50"
-                        aria-label="Delete record"
+                        aria-label={
+                          table === "profiles"
+                            ? "Deactivate staff access"
+                            : "Delete record"
+                        }
                       >
-                        <Trash2 className="h-4 w-4" /> Delete
+                        <Trash2 className="h-4 w-4" />{" "}
+                        {table === "profiles" ? "Deactivate" : "Delete"}
                       </button>
                     </td>
                   </tr>
